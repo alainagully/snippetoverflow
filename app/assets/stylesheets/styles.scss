@@ -1,0 +1,172 @@
+@import "bootstrap";
+html {
+    min-height: 100%;
+}
+body {
+    min-height: 100%;
+    background: linear-gradient(rgba(255, 255, 255, 0.73),rgba(197, 227, 252, 0.27));
+    margin-bottom: 50px;
+}
+section {
+    overflow: auto;
+}
+textarea {
+    resize: vertical;
+}
+a.app-logo {
+    color: white;
+    display: inline-block;
+    float: left;
+}
+#exCollapsingNavbar2 > ul {
+    font-family: monospace;
+    > strong > a.brand-homepage {
+        font-size: 1.8em;
+        color: white;
+        font-family: monospace;
+    }
+}
+.navbar-dark .navbar-nav {
+    color: rgba(255, 255, 255, 0.8);
+}
+.nav-link {
+    color:rgba(255, 255, 255, 0.8);
+    display:inline-block;
+    padding: 5px;
+    border-style: none;
+}
+.navbar-nav .nav-item {
+    float: right;
+    display:inline-block;
+}
+.title {
+    padding: 30px 50px;
+}
+.nf {
+    color: rgb(255, 222, 0) !important;
+}
+.no {
+    color: rgb(2, 190, 105) !important;
+}
+div.highlight {
+    border-radius: 10px;
+    padding: 25px;
+    background-color: rgba(236, 235, 229, 0.744);
+    font-size: 1.2em;
+}
+.snippet-Ruby {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 10px;
+}
+ul.nav-codes {}
+.nav-pills .nav-item {
+    display: inline-block;
+    float: none;
+}
+div.tab-content {
+    margin-top: 15px;
+    font-size: 1.25em;
+}
+#ruby {
+    border-radius: 10px;
+    background-color: rgba(198, 47, 102, 0.2);
+    color: rgb(56, 56, 56);
+    div {
+        border-radius: 5px;
+        padding: 10px 5px;
+        a {
+            color: rgb(56, 56, 56);
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+    div:nth-child(2n) {
+        background-color: rgba(199, 0, 125, 0.2);
+    }
+}
+#html {
+    border-radius: 10px;
+    background-color: rgba(175, 255, 158, 0.35);
+    color: rgb(56, 56, 56);
+    div {
+        border-radius: 5px;
+        border-radius: 5px;
+        padding: 10px 5px;
+        a {
+            color: rgb(56, 56, 56);
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+    div:nth-child(2n) {
+        background-color: rgba(68, 240, 85, 0.4);
+    }
+}
+#css {
+    border-radius: 10px;
+    background-color: rgba(255, 180, 102, 0.4);
+    color: rgb(56, 56, 56);
+    div {
+        border-radius: 5px;
+        border-radius: 5px;
+        padding: 10px 5px;
+        a {
+            color: rgb(56, 56, 56);
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+    div:nth-child(2n) {
+        background-color: rgba(255, 162, 116, 0.4);
+    }
+}
+#javascript {
+    border-radius: 10px;
+    background-color: rgba(92, 194, 232, 0.2);
+    color: rgb(56, 56, 56);
+    div {
+        border-radius: 5px;
+        border-radius: 5px;
+        padding: 10px 5px;
+        a {
+            color: rgb(56, 56, 56);
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+    div:nth-child(2n) {
+        background-color: rgba(79, 255, 244, 0.12);
+    }
+}
+
+// creating a new snippet-code
+
+#snippet-code {
+    font-family: monospace;
+}
+.create-code {
+    height: 500px;
+}
+
+// for pagination
+
+nav.pagination {
+    font-size: 0.6em;
+}
+body > main > div:nth-child(2) > nav > ul > li:nth-child(1) > a {
+    background-color: #ff8080 !important;
+    color: #131313;
+}
+body > main > div:nth-child(2) > nav > ul > li:nth-child(2) > a {
+    background-color: #FFB380 !important;
+    color: #131313;
+}
+body > main > div:nth-child(2) > nav > ul > li:nth-child(3) > a {
+    background-color: #b3d9ff !important;
+    color: #131313;
+}
+body > main > div:nth-child(2) > nav > ul > li:nth-child(4) > a {
+    background-color: #f5f589 !important;
+    color: #131313;
+}

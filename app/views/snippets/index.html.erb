@@ -1,0 +1,84 @@
+<h1 class = "title text-lg-center">All Public Snippets (<%= @snippets.length %>)</h1>
+
+<!-- <div class="col-md-10 col-md-offset-1"> -->
+<div class="row">
+  <nav class="code-navigation col-md-10 col-md-offset-1">
+    <ul class="nav nav-pills text-lg-center" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#ruby" role="tab">Ruby
+        <%= fa_icon('diamond') %></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#html" role="tab">HTML <%= fa_icon('html5')  %></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#css" role="tab">CSS  <%= fa_icon('css3') %></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#javascript" role="tab">JavaScript <%= fa_icon("coffee") %></a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<!-- Tab panes -->
+<% if @snippets %>
+<div class="tab-content row">
+  <div class="tab-pane active col-md-6 col-md-offset-3" id="ruby" role="tabpanel">
+    <% @snippets.where({kind: "Ruby"}).each do |snippet| %>
+       <div class="panel-heading striped-panel">
+         <%= link_to "#{snippet.title}", snippet_path(snippet)  %>
+         <span class="pull-right">
+          <%= html_kind(snippet.kind)[:icon]%>
+         </span>
+       </div>
+    <% end %>
+
+  </div>
+  <div class="tab-pane col-md-6 col-md-offset-3" id="html" role="tabpanel">
+    <% @snippets.where({kind: "HTML"}).each do |snippet| %>
+       <div class="panel-heading striped-panel">
+         <%= link_to "#{snippet.title}", snippet_path(snippet)  %>
+         <span class="pull-right">
+          <%= html_kind(snippet.kind)[:icon]%>
+         </span>
+       </div>
+    <% end %>
+
+  </div>
+  <div class="tab-pane col-md-6 col-md-offset-3" id="css" role="tabpanel">
+    <% @snippets.where({kind: "CSS"}).each do |snippet| %>
+       <div class="panel-heading striped-panel">
+         <%= link_to "#{snippet.title}", snippet_path(snippet)  %>
+         <span class="pull-right">
+          <%= html_kind(snippet.kind)[:icon]%>
+         </span>
+       </div>
+    <% end %>
+
+  </div>
+  <div class="tab-pane col-md-6 col-md-offset-3" id="javascript" role="tabpanel">
+    <% @snippets.where({kind: "JavaScript"}).each do |snippet| %>
+       <div class="panel-heading striped-panel">
+         <%= link_to "#{snippet.title}", snippet_path(snippet)  %>
+         <span class="pull-right">
+          <%= html_kind(snippet.kind)[:icon]%>
+         </span>
+       </div>
+    <% end %>
+
+  </div>
+</div>
+<% end %>
+
+
+
+
+
+    <!-- <table class="table table-striped"> -->
+      <%# @snippets.each do |snippet| %>
+        <!-- <tr> -->
+          <!-- <td><%# link_to snippet.title, snippet_path(snippet) %></td> -->
+        <!-- </tr> -->
+      <%# end %>
+    <!-- </table> -->

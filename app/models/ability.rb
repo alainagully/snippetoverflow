@@ -5,17 +5,13 @@ class Ability
     # Define abilities for the passed in user here. For example:
     #
       user ||= User.new # guest user (not logged in)
-      if user.admin?
-        can :manage, :all
+    #   if user.admin?
+    #     can :manage, :all
     #   else
     #     can :read, :all
-      end
+    #   end
 
-    can :read, CodeSnippet do |snippet|
-     snippet.privacy == false || (snippet.privacy == true && snippet.user == user)
-    end
-
-    can :manage, CodeSnippet do |snippet|
+    can :manage, Snippet do |snippet|
       snippet.user == user
     end
     #
