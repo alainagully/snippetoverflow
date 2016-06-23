@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
 # Use postgresql as the database for Active Record
@@ -14,16 +15,11 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 
 gem 'bootstrap-sass', '~> 3.3.6'
-
-gem 'bootstrap-kaminari-views'
-
 gem 'kaminari'
-
-gem 'coderay'
-
+gem 'bootstrap-kaminari-views'
 gem 'cancancan'
-
 gem 'redcarpet', '~> 3.0.0'
+gem 'coderay'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -44,21 +40,21 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-    # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-    gem 'byebug'
-    gem 'faker'
-    gem 'rspec-rails'
-    gem 'factory_girl_rails'
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
+  gem 'faker'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
 end
 
 group :development do
-    # Access an IRB console on exception pages or by using <%= console %> in views
-    gem 'web-console', '~> 2.0'
+  # Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'web-console', '~> 2.0'
 
-    gem 'awesome_print'
-    gem 'interactive_editor'
-    gem 'hirb'
+  gem 'awesome_print'
+  gem 'interactive_editor'
+  gem 'hirb'
 
-    # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-    gem 'spring'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
 end

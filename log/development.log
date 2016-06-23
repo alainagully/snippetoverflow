@@ -1,35 +1,6 @@
-  [1m[36m (128.2ms)[0m  [1mDROP DATABASE IF EXISTS "code_snippets_development"[0m
-  [1m[36m (754.9ms)[0m  [1mCREATE DATABASE "code_snippets_development" ENCODING = 'unicode'[0m
-  [1m[36m (15.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
-  [1m[35m (7.8ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
-  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
-Migrating to CreateLanguages (20160220025558)
-  [1m[35m (0.1ms)[0m  BEGIN
-  [1m[36m (15.5ms)[0m  [1mCREATE TABLE "languages" ("id" serial primary key, "name" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
-  [1m[35mSQL (0.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160220025558"]]
-  [1m[36m (6.1ms)[0m  [1mCOMMIT[0m
-Migrating to CreateUsers (20160220025758)
-  [1m[35m (5.9ms)[0m  BEGIN
-  [1m[36m (6.4ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "first_name" character varying, "last_name" character varying, "email" character varying, "password_digest" character varying, "admin" boolean DEFAULT 'f', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
-  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160220025758"]]
-  [1m[36m (1.3ms)[0m  [1mCOMMIT[0m
-Migrating to CreateCodeSnippets (20160220030017)
-  [1m[35m (0.9ms)[0m  BEGIN
-  [1m[36m (6.0ms)[0m  [1mCREATE TABLE "code_snippets" ("id" serial primary key, "title" character varying, "body" text, "privacy" boolean DEFAULT 'f', "language_id" integer, "user_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
-  [1m[35m (2.3ms)[0m  CREATE  INDEX  "index_code_snippets_on_language_id" ON "code_snippets"  ("language_id")
-  [1m[36m (2.2ms)[0m  [1mCREATE  INDEX  "index_code_snippets_on_user_id" ON "code_snippets"  ("user_id")[0m
-  [1m[35m (1.5ms)[0m  ALTER TABLE "code_snippets" ADD CONSTRAINT "fk_rails_7e2cd5ab6b"
-FOREIGN KEY ("language_id")
-  REFERENCES "languages" ("id")
-
-  [1m[36m (1.2ms)[0m  [1mALTER TABLE "code_snippets" ADD CONSTRAINT "fk_rails_7c276333fb"
-FOREIGN KEY ("user_id")
-  REFERENCES "users" ("id")
-[0m
-  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160220030017"]]
-  [1m[36m (2.4ms)[0m  [1mCOMMIT[0m
-  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
-  [1m[36m (2.0ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+  [1m[36mActiveRecord::SchemaMigration Load (6.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (3.8ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
 FROM pg_constraint c
 JOIN pg_class t1 ON c.conrelid = t1.oid
 JOIN pg_class t2 ON c.confrelid = t2.oid
@@ -41,7 +12,7 @@ WHERE c.contype = 'f'
   AND t3.nspname = ANY (current_schemas(false))
 ORDER BY c.conname
 [0m
-  [1m[35m (1.5ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+  [1m[35m (1.7ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
 FROM pg_constraint c
 JOIN pg_class t1 ON c.conrelid = t1.oid
 JOIN pg_class t2 ON c.confrelid = t2.oid
@@ -53,7 +24,7 @@ WHERE c.contype = 'f'
   AND t3.nspname = ANY (current_schemas(false))
 ORDER BY c.conname
 
-  [1m[36m (1.4ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+  [1m[36m (1.5ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
 FROM pg_constraint c
 JOIN pg_class t1 ON c.conrelid = t1.oid
 JOIN pg_class t2 ON c.confrelid = t2.oid
@@ -65,144 +36,3 @@ WHERE c.contype = 'f'
   AND t3.nspname = ANY (current_schemas(false))
 ORDER BY c.conname
 [0m
-
-
-Started GET "/" for ::1 at 2016-06-22 17:35:57 -0700
-  [1m[36mActiveRecord::SchemaMigration Load (12.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
-Processing by CodeSnippetsController#index as HTML
-  [1m[35mCodeSnippet Load (18.1ms)[0m  SELECT "code_snippets".* FROM "code_snippets"
-  [1m[36mLanguage Load (5.5ms)[0m  [1mSELECT "languages".* FROM "languages"[0m
-  Rendered code_snippets/index.html.erb within layouts/application (85.4ms)
-Completed 200 OK in 5428ms (Views: 5354.2ms | ActiveRecord: 50.6ms)
-
-
-Started GET "/assets/application.self-7ccbdbda24623a5ac95ee1e7d5a3eefb2edbd93248fbffde321063ce88a96b8a.css?body=1" for ::1 at 2016-06-22 17:36:03 -0700
-
-
-Started GET "/assets/code_snippets.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-06-22 17:36:03 -0700
-
-
-Started GET "/code_snippets/new" for ::1 at 2016-06-22 17:36:06 -0700
-Processing by CodeSnippetsController#new as HTML
-Redirected to http://localhost:3000/sessions/new
-Filter chain halted as :authenticate_user rendered or redirected
-Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
-
-
-Started GET "/sessions/new" for ::1 at 2016-06-22 17:36:06 -0700
-Processing by SessionsController#new as HTML
-  Rendered sessions/_form.html.erb (2.8ms)
-  Rendered sessions/new.html.erb within layouts/application (7.2ms)
-Completed 200 OK in 57ms (Views: 56.3ms | ActiveRecord: 0.0ms)
-
-
-Started POST "/sessions" for ::1 at 2016-06-22 17:36:10 -0700
-Processing by SessionsController#create as HTML
-  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Xk3sb9JOIbQugl2qaAgz5g8l98Trz+RFpGpcQqC08YVUjLsgv41MnSYwMNoT1Xb5GI1Z+tqeBWd16ZxGzDF6NA==", "email"=>"a@abc.com", "password"=>"[FILTERED]", "commit"=>"Log in"}
-  [1m[35mUser Load (6.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1  [["email", "a@abc.com"]]
-  Rendered sessions/_form.html.erb (1.1ms)
-  Rendered sessions/new.html.erb within layouts/application (2.6ms)
-Completed 200 OK in 107ms (Views: 55.4ms | ActiveRecord: 6.3ms)
-
-
-Started GET "/users/new" for ::1 at 2016-06-22 17:36:15 -0700
-Processing by UsersController#new as HTML
-  Rendered users/_form.html.erb (752.8ms)
-  Rendered users/new.html.erb within layouts/application (756.2ms)
-Completed 200 OK in 811ms (Views: 810.7ms | ActiveRecord: 0.0ms)
-
-
-Started POST "/users" for ::1 at 2016-06-22 17:36:30 -0700
-Processing by UsersController#create as HTML
-  Parameters: {"utf8"=>"✓", "authenticity_token"=>"m2Xi9vpY+WDQAM6Igfery1qzNoNxLilX/C4rLBXXuiuRpLW5l5uUSdiyo/j6Ku7UTRuYvUB/yHUtresoeVIxmg==", "user"=>{"first_name"=>"Angela", "last_name"=>"Ji", "email"=>"a@abc.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Create User"}
-  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
-  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'a@abc.com' LIMIT 1
-  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["first_name", "Angela"], ["last_name", "Ji"], ["email", "a@abc.com"], ["password_digest", "$2a$10$gajjNFsszmiOkgMKrlsfSe.MNxHICA3dI7Nac8yLPHBcCPUV6z6we"], ["created_at", "2016-06-23 00:36:30.992067"], ["updated_at", "2016-06-23 00:36:30.992067"]]
-  [1m[35m (1.2ms)[0m  COMMIT
-Redirected to http://localhost:3000/
-Completed 302 Found in 99ms (ActiveRecord: 2.0ms)
-
-
-Started GET "/" for ::1 at 2016-06-22 17:36:31 -0700
-Processing by CodeSnippetsController#index as HTML
-  [1m[36mCodeSnippet Load (0.3ms)[0m  [1mSELECT "code_snippets".* FROM "code_snippets"[0m
-  [1m[35mLanguage Load (0.2ms)[0m  SELECT "languages".* FROM "languages"
-  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
-  Rendered code_snippets/index.html.erb within layouts/application (4.4ms)
-Completed 200 OK in 56ms (Views: 53.6ms | ActiveRecord: 0.7ms)
-
-
-Started GET "/users/1" for ::1 at 2016-06-22 17:36:35 -0700
-Processing by UsersController#show as HTML
-  Parameters: {"id"=>"1"}
-  [1m[35mUser Load (1.9ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
-  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
-  Rendered users/show.html.erb within layouts/application (1.3ms)
-Completed 200 OK in 94ms (Views: 90.1ms | ActiveRecord: 1.9ms)
-
-
-Started GET "/code_snippets" for ::1 at 2016-06-22 17:36:55 -0700
-Processing by CodeSnippetsController#index as HTML
-  [1m[35mCodeSnippet Load (0.3ms)[0m  SELECT "code_snippets".* FROM "code_snippets"
-  [1m[36mLanguage Load (0.2ms)[0m  [1mSELECT "languages".* FROM "languages"[0m
-  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
-  Rendered code_snippets/index.html.erb within layouts/application (4.4ms)
-Completed 200 OK in 52ms (Views: 50.2ms | ActiveRecord: 0.7ms)
-
-
-Started GET "/users/1" for ::1 at 2016-06-22 17:36:58 -0700
-Processing by UsersController#show as HTML
-  Parameters: {"id"=>"1"}
-  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
-  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
-  Rendered users/show.html.erb within layouts/application (0.3ms)
-Completed 200 OK in 44ms (Views: 42.9ms | ActiveRecord: 0.3ms)
-
-
-Started GET "/code_snippets?utf8=%E2%9C%93&q=fdsf&commit=Search+Snippets" for ::1 at 2016-06-22 17:37:02 -0700
-Processing by CodeSnippetsController#index as HTML
-  Parameters: {"utf8"=>"✓", "q"=>"fdsf", "commit"=>"Search Snippets"}
-  [1m[36mCodeSnippet Load (8.3ms)[0m  [1mSELECT "code_snippets".* FROM "code_snippets" WHERE (title || body ILIKE '%fdsf%')[0m
-  [1m[35mLanguage Load (0.2ms)[0m  SELECT "languages".* FROM "languages"
-  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
-  Rendered code_snippets/index.html.erb within layouts/application (3.1ms)
-Completed 200 OK in 52ms (Views: 42.5ms | ActiveRecord: 8.7ms)
-
-
-Started GET "/code_snippets?utf8=%E2%9C%93&q=fdsffdsaf&commit=Search+Snippets" for ::1 at 2016-06-22 17:37:05 -0700
-Processing by CodeSnippetsController#index as HTML
-  Parameters: {"utf8"=>"✓", "q"=>"fdsffdsaf", "commit"=>"Search Snippets"}
-  [1m[35mCodeSnippet Load (0.3ms)[0m  SELECT "code_snippets".* FROM "code_snippets" WHERE (title || body ILIKE '%fdsffdsaf%')
-  [1m[36mLanguage Load (0.3ms)[0m  [1mSELECT "languages".* FROM "languages"[0m
-  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
-  Rendered code_snippets/index.html.erb within layouts/application (4.5ms)
-Completed 200 OK in 58ms (Views: 56.4ms | ActiveRecord: 0.9ms)
-
-
-Started GET "/code_snippets?utf8=%E2%9C%93&q=fdsffdsaf&commit=Search+Snippets" for ::1 at 2016-06-22 17:53:20 -0700
-  [1m[36mActiveRecord::SchemaMigration Load (11.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
-Processing by CodeSnippetsController#index as HTML
-  Parameters: {"utf8"=>"✓", "q"=>"fdsffdsaf", "commit"=>"Search Snippets"}
-  [1m[35mCodeSnippet Load (17.7ms)[0m  SELECT "code_snippets".* FROM "code_snippets" WHERE (title || body ILIKE '%fdsffdsaf%')
-  [1m[36mLanguage Load (6.7ms)[0m  [1mSELECT "languages".* FROM "languages"[0m
-  [1m[35mUser Load (11.9ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
-  Rendered code_snippets/index.html.erb within layouts/application (124.9ms)
-Completed 200 OK in 5357ms (Views: 5271.3ms | ActiveRecord: 62.4ms)
-
-
-Started GET "/" for ::1 at 2016-06-22 17:53:26 -0700
-Processing by CodeSnippetsController#index as HTML
-  [1m[36mCodeSnippet Load (0.2ms)[0m  [1mSELECT "code_snippets".* FROM "code_snippets"[0m
-  [1m[35mLanguage Load (0.2ms)[0m  SELECT "languages".* FROM "languages"
-  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
-  Rendered code_snippets/index.html.erb within layouts/application (3.6ms)
-Completed 200 OK in 52ms (Views: 50.5ms | ActiveRecord: 0.7ms)
-
-
-Started GET "/code_snippets/new" for ::1 at 2016-06-22 17:53:31 -0700
-Processing by CodeSnippetsController#new as HTML
-  [1m[35mLanguage Load (0.5ms)[0m  SELECT "languages".* FROM "languages"  ORDER BY name
-  Rendered code_snippets/_form.html.erb (726.9ms)
-  Rendered code_snippets/new.html.erb within layouts/application (730.9ms)
-  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
-Completed 200 OK in 791ms (Views: 784.3ms | ActiveRecord: 1.2ms)
