@@ -185,6 +185,11 @@ GEM
     rdoc (4.2.2)
       json (~> 1.4)
     redcarpet (3.2.3)
+    rouge (2.0.1)
+    rouge-rails (0.2.1)
+      actionview
+      railties
+      rouge
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
       rspec-expectations (~> 3.4.0)
@@ -274,6 +279,7 @@ DEPENDENCIES
   rails (= 4.2.5.1)
   rails_12factor
   redcarpet
+  rouge-rails
   rspec-rails (~> 3.4.2)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
@@ -283,4 +289,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.11.2
+   1.12.5

@@ -31,6 +31,7 @@ gem 'figaro'
 gem 'font-awesome-rails'
 gem 'delayed_job_active_record'
 gem 'redcarpet'
+gem 'rouge-rails'
 gem 'pygments.rb'
 
 # Use Unicorn as the app server
