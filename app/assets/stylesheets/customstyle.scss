@@ -5,7 +5,7 @@ html {
 body {
     min-height: 100%;
     background: linear-gradient(rgba(255, 255, 255, 0.73),rgba(197, 227, 252, 0.27));
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 section {
     overflow: auto;
@@ -17,27 +17,35 @@ a.app-logo {
     color: white;
     display: inline-block;
     float: left;
+    margin: 15px;
 }
-#exCollapsingNavbar2 > ul {
+#navbar > ul {
     font-family: monospace;
     > strong > a.brand-homepage {
-        font-size: 1.8em;
+        font-size: 2.2em;
         color: white;
         font-family: monospace;
+        display: flex;
     }
 }
 .navbar-dark .navbar-nav {
-    color: rgba(255, 255, 255, 0.8);
+    color: #FFF;
 }
 .nav-link {
-    color:rgba(255, 255, 255, 0.8);
-    display:inline-block;
+    color: #FFF;
+    display: right;
     padding: 5px;
     border-style: none;
+    bottom: 0;
 }
 .navbar-nav .nav-item {
     float: right;
     display:inline-block;
+
+}
+.float-left {
+    float: left;
+    margin: 20px;
 }
 .title {
     padding: 30px 50px;
@@ -70,9 +78,10 @@ div.tab-content {
 }
 #ruby {
     border-radius: 10px;
-    background-color: rgba(198, 47, 102, 0.2);
+    background-color: rgba(236, 95, 103, 0.5);
     color: rgb(56, 56, 56);
     div {
+        border-radius: 5px;
         border-radius: 5px;
         padding: 10px 5px;
         a {
@@ -82,12 +91,12 @@ div.tab-content {
         }
     }
     div:nth-child(2n) {
-        background-color: rgba(199, 0, 125, 0.2);
+        background-color: rgba(236, 95, 103, 0.5);
     }
 }
 #html {
     border-radius: 10px;
-    background-color: rgba(175, 255, 158, 0.35);
+    background-color: rgba(249, 145, 87, 0.5);
     color: rgb(56, 56, 56);
     div {
         border-radius: 5px;
@@ -100,12 +109,12 @@ div.tab-content {
         }
     }
     div:nth-child(2n) {
-        background-color: rgba(68, 240, 85, 0.4);
+        background-color: rgba(249, 145, 87, 0.5);
     }
 }
 #css {
     border-radius: 10px;
-    background-color: rgba(255, 180, 102, 0.4);
+    background-color: rgba(250, 200, 99, 0.5);
     color: rgb(56, 56, 56);
     div {
         border-radius: 5px;
@@ -118,12 +127,31 @@ div.tab-content {
         }
     }
     div:nth-child(2n) {
-        background-color: rgba(255, 162, 116, 0.4);
+        background-color: rbga(250, 200, 99, 0.5);
     }
 }
 #javascript {
     border-radius: 10px;
-    background-color: rgba(92, 194, 232, 0.2);
+    background-color: rgba(153, 199, 148, 0.5);
+    color: rgb(56, 56, 56);
+    div {
+        border-radius: 5px;
+
+        padding: 10px 5px;
+        a {
+            color: rgb(56, 56, 56);
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+    div:nth-child(2n) {
+        background-color: rgba(153, 199, 148, 0.5);
+    }
+}
+
+#markdown {
+    border-radius: 10px;
+    background-color: rgba(95, 179, 179, 0.5);
     color: rgb(56, 56, 56);
     div {
         border-radius: 5px;
@@ -136,7 +164,25 @@ div.tab-content {
         }
     }
     div:nth-child(2n) {
-        background-color: rgba(79, 255, 244, 0.12);
+        background-color: rgba(95, 179, 179, 0.5);
+    }
+}
+#python {
+    border-radius: 10px;
+    background-color: rgba(102, 153, 204, 0.5);
+    color: rgb(56, 56, 56);
+    div {
+        border-radius: 5px;
+        border-radius: 5px;
+        padding: 10px 5px;
+        a {
+            color: rgb(56, 56, 56);
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+    div:nth-child(2n) {
+        background-color: rgba(102, 153, 204, 0.5);
     }
 }
 
@@ -144,9 +190,12 @@ div.tab-content {
 
 #snippet-code {
     font-family: monospace;
+    background-color: #9292b9;
+    padding: 10px;
+    border-radius: 7px;
 }
 .create-code {
-    height: 500px;
+    height: 600px !important;
 }
 
 // for pagination
@@ -155,18 +204,26 @@ nav.pagination {
     font-size: 0.6em;
 }
 body > main > div:nth-child(2) > nav > ul > li:nth-child(1) > a {
-    background-color: #ff8080 !important;
+    background-color: #EC5F67 !important;
     color: #131313;
 }
 body > main > div:nth-child(2) > nav > ul > li:nth-child(2) > a {
-    background-color: #FFB380 !important;
+    background-color: #F99157 !important;
     color: #131313;
 }
 body > main > div:nth-child(2) > nav > ul > li:nth-child(3) > a {
-    background-color: #b3d9ff !important;
+    background-color: #FAC863 !important;
     color: #131313;
 }
 body > main > div:nth-child(2) > nav > ul > li:nth-child(4) > a {
-    background-color: #f5f589 !important;
+    background-color: #99C794 !important;
+    color: #131313;
+}
+body > main > div:nth-child(2) > nav > ul > li:nth-child(5) > a {
+    background-color: #5FB3B3 !important;
+    color: #131313;
+}
+body > main > div:nth-child(2) > nav > ul > li:nth-child(6) > a {
+    background-color: #6699CC !important;
     color: #131313;
 }

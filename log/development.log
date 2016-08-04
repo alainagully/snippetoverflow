@@ -1,1064 +1,915 @@
-  [1m[36m (124.1ms)[0m  [1mDROP DATABASE IF EXISTS "codesnippets_development"[0m
-  [1m[36m (738.9ms)[0m  [1mCREATE DATABASE "codesnippets_development" ENCODING = 'unicode'[0m
-  [1m[36m (5.1ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
-  [1m[35m (3.8ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
-  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
-Migrating to CreateUsers (20160219235817)
-  [1m[35m (0.1ms)[0m  BEGIN
-  [1m[36m (5.9ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "first_name" character varying, "last_name" character varying, "email" character varying, "password_digest" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
-  [1m[35m (2.3ms)[0m  CREATE  INDEX  "index_users_on_email" ON "users"  ("email")
-  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20160219235817"]]
-  [1m[35m (6.0ms)[0m  COMMIT
-Migrating to CreateSnippets (20160220004320)
-  [1m[36m (0.9ms)[0m  [1mBEGIN[0m
-  [1m[35m (5.9ms)[0m  CREATE TABLE "snippets" ("id" serial primary key, "kind" character varying, "title" character varying, "code" text, "private" boolean, "user_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
-  [1m[36m (2.8ms)[0m  [1mCREATE  INDEX  "index_snippets_on_user_id" ON "snippets"  ("user_id")[0m
-  [1m[35m (1.5ms)[0m  ALTER TABLE "snippets" ADD CONSTRAINT "fk_rails_77e256d035"
-FOREIGN KEY ("user_id")
-  REFERENCES "users" ("id")
-
-  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20160220004320"]]
-  [1m[35m (1.5ms)[0m  COMMIT
-Migrating to ChangePrivateToDefaultsOnSnippet (20160220014209)
-  [1m[36m (0.8ms)[0m  [1mBEGIN[0m
-  [1m[35m (0.3ms)[0m  ALTER TABLE "snippets" ALTER COLUMN "private" TYPE boolean
-  [1m[36m (0.3ms)[0m  [1mALTER TABLE "snippets" ALTER COLUMN "private" SET DEFAULT 'f'[0m
-  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160220014209"]]
-  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
-  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
-  [1m[36m (2.0ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
-FROM pg_constraint c
-JOIN pg_class t1 ON c.conrelid = t1.oid
-JOIN pg_class t2 ON c.confrelid = t2.oid
-JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
-JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
-JOIN pg_namespace t3 ON c.connamespace = t3.oid
-WHERE c.contype = 'f'
-  AND t1.relname = 'snippets'
-  AND t3.nspname = ANY (current_schemas(false))
-ORDER BY c.conname
-[0m
-  [1m[35m (1.4ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
-FROM pg_constraint c
-JOIN pg_class t1 ON c.conrelid = t1.oid
-JOIN pg_class t2 ON c.confrelid = t2.oid
-JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
-JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
-JOIN pg_namespace t3 ON c.connamespace = t3.oid
-WHERE c.contype = 'f'
-  AND t1.relname = 'users'
-  AND t3.nspname = ANY (current_schemas(false))
-ORDER BY c.conname
 
 
-
-Started GET "/" for ::1 at 2016-06-23 16:20:13 -0700
-  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
-
-LoadError (No such file to load -- rouge):
-  app/helpers/application_helper.rb:4:in `<module:ApplicationHelper>'
-  app/helpers/application_helper.rb:1:in `<top (required)>'
-  app/controllers/application_controller.rb:1:in `<top (required)>'
-  app/controllers/snippets_controller.rb:1:in `<top (required)>'
-
-
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.2ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.6ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (10.2ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (74.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.5ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (726.6ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (798.6ms)
+Started GET "/" for ::1 at 2016-08-03 18:17:40 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (25.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by SnippetsController#index as HTML
+  [1m[35mSnippet Load (20.7ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1  ORDER BY created_at DESC  [["private", "f"]]
+  [1m[36mSnippet Load (1.6ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "Ruby"]]
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "HTML"]]
+  [1m[36mSnippet Load (0.3ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "CSS"]]
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "JavaScript"]]
+  [1m[36mSnippet Load (0.3ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "Markdown"]]
+  [1m[35mSnippet Load (0.3ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Python"]]
+  Rendered snippets/index.html.erb within layouts/application (75.2ms)
+  Rendered layouts/_navbar.html.erb (2.5ms)
+  Rendered layouts/_flash.html.erb (0.5ms)
+Completed 200 OK in 5805ms (Views: 5698.8ms | ActiveRecord: 57.9ms)
 
 
-Started GET "/" for ::1 at 2016-06-23 16:23:10 -0700
-  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
-
-LoadError (No such file to load -- rouge):
-  app/helpers/application_helper.rb:4:in `<module:ApplicationHelper>'
-  app/helpers/application_helper.rb:1:in `<top (required)>'
-  app/controllers/application_controller.rb:1:in `<top (required)>'
-  app/controllers/snippets_controller.rb:1:in `<top (required)>'
+Started GET "/assets/font-awesome.self-c1a7a80b6536c3397a1a212c9bd22298ae69260ee343d00b60d7f41fa54a59a8.css?body=1" for ::1 at 2016-08-03 18:17:46 -0700
 
 
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.8ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (12.0ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (63.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (368.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (429.9ms)
+Started GET "/assets/customstyle.self-4b591d2af23ea738c4204b274a1642716c2d2181bec5cb33d983bc1f4c9c096c.css?body=1" for ::1 at 2016-08-03 18:17:46 -0700
 
 
-Started GET "/" for ::1 at 2016-06-23 16:24:46 -0700
-
-LoadError (No such file to load -- rouge):
-  app/helpers/application_helper.rb:4:in `<module:ApplicationHelper>'
-  app/helpers/application_helper.rb:1:in `<top (required)>'
-  app/controllers/application_controller.rb:1:in `<top (required)>'
-  app/controllers/snippets_controller.rb:1:in `<top (required)>'
+Started GET "/assets/pygments.self-87f52c8b338cd237146f4475f140ff233f73ccecc5e7a0734a306bd322163511.css?body=1" for ::1 at 2016-08-03 18:17:46 -0700
 
 
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.5ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.2ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.1ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (47.2ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.2ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (35.9ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (82.2ms)
+Started GET "/assets/users.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-08-03 18:17:46 -0700
 
 
-Started GET "/" for ::1 at 2016-06-23 16:25:48 -0700
+Started GET "/assets/sessions.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-08-03 18:17:46 -0700
+
+
+Started GET "/assets/snippets.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-08-03 18:17:46 -0700
+
+
+Started GET "/assets/application.self-167193cd81d9330d9ddb5c4ec7b44214fea529aa8a94f3a86e6526e4f652fc02.css?body=1" for ::1 at 2016-08-03 18:17:46 -0700
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-08-03 18:17:46 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-08-03 18:17:46 -0700
+
+
+Started GET "/assets/bootstrap.self-e7dfe29e9f594eb85eead62e3ed95df169b0fc3d21fe0468a812e399c9fcc604.js?body=1" for ::1 at 2016-08-03 18:17:46 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-08-03 18:17:46 -0700
+
+
+Started GET "/assets/sessions.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-08-03 18:17:46 -0700
+
+
+Started GET "/assets/snippets.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-08-03 18:17:46 -0700
+
+
+Started GET "/assets/users.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-08-03 18:17:46 -0700
+
+
+Started GET "/assets/application.self-f8806224e027f3e3f0138ea9ce99319e298dfdb323304d1f1be6eae8e8c74724.js?body=1" for ::1 at 2016-08-03 18:17:46 -0700
+
+
+Started GET "/assets/fontawesome-webfont-ff82aeed6b9bb6701696c84d1b223d2e682eb78c89117a438ce6cfea8c498995.woff2?v=4.5.0" for ::1 at 2016-08-03 18:17:46 -0700
+
+
+Started GET "/sessions/new" for ::1 at 2016-08-03 18:22:00 -0700
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (706.1ms)
+  Rendered layouts/_navbar.html.erb (1.5ms)
+  Rendered layouts/_flash.html.erb (0.5ms)
+Completed 200 OK in 752ms (Views: 751.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/sessions" for ::1 at 2016-08-03 18:22:02 -0700
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"BHYZbXfkldLUdxVE5k22AhhUv8Vi567vQvs4EaoHZOU2vGIauEeL1LYtSavXVib8t6LOvGTWBMeXeYJUgzKtxw==", "session"=>{"email"=>"angela@abc.com", "password"=>"[FILTERED]"}, "commit"=>"Sign In"}
+  [1m[36mUser Load (20.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "angela@abc.com"]]
+  Rendered sessions/new.html.erb within layouts/application (1.4ms)
+  Rendered layouts/_navbar.html.erb (0.3ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 83ms (Views: 34.3ms | ActiveRecord: 26.8ms)
+
+
+Started POST "/sessions" for ::1 at 2016-08-03 18:22:05 -0700
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"HH5QPYJS8E2twbrtd59YbDZ0tsA1F7xj9WsUIQIbOvgutCtKTfHuS8+b5gJGhMiSmYLHuTMmFksg6a5kKy7z2g==", "session"=>{"email"=>"a@abc.com", "password"=>"[FILTERED]"}, "commit"=>"Sign In"}
+  [1m[35mUser Load (2.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1  [["email", "a@abc.com"]]
+Redirected to http://localhost:3000/
+Completed 302 Found in 75ms (ActiveRecord: 2.9ms)
+
+
+Started GET "/" for ::1 at 2016-08-03 18:22:05 -0700
+Processing by SnippetsController#index as HTML
+  [1m[36mSnippet Load (0.3ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1  ORDER BY created_at DESC[0m  [["private", "f"]]
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Ruby"]]
+  [1m[36mSnippet Load (0.1ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "HTML"]]
+  [1m[35mSnippet Load (0.1ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "CSS"]]
+  [1m[36mSnippet Load (0.1ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "JavaScript"]]
+  [1m[35mSnippet Load (0.1ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Markdown"]]
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "Python"]]
+  Rendered snippets/index.html.erb within layouts/application (6.4ms)
+  [1m[35mUser Load (1.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_navbar.html.erb (3.1ms)
+  Rendered layouts/_flash.html.erb (0.2ms)
+Completed 200 OK in 44ms (Views: 40.4ms | ActiveRecord: 2.4ms)
+
+
+Started GET "/snippets/new" for ::1 at 2016-08-03 18:22:08 -0700
+Processing by SnippetsController#new as HTML
+  Rendered snippets/new.html.erb within layouts/application (28.4ms)
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered layouts/_navbar.html.erb (1.6ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 64ms (Views: 62.7ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/snippets" for ::1 at 2016-08-03 18:22:26 -0700
+Processing by SnippetsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"0pGJDpiH8o21MQ45P3KNZIFyQw8NG8MZpFVAa87rs7XgW/J5VyTsi9drUtYOaR2aLoQydgsqaTFx1/ou5956lw==", "snippet"=>{"kind"=>"Ruby", "title"=>"fizzbuzz", "code"=>"fwerwejkrjakwekrlwlejfwjalfjldfafjkewjrklejwlkrjwekljrlkwejrklwjeklra", "private"=>"0"}, "commit"=>"Post the Snippet"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSnippet Exists (11.2ms)[0m  SELECT  1 AS one FROM "snippets" WHERE "snippets"."title" = 'fizzbuzz' LIMIT 1
+  [1m[36mSQL (7.1ms)[0m  [1mINSERT INTO "snippets" ("kind", "title", "code", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["kind", "Ruby"], ["title", "fizzbuzz"], ["code", "fwerwejkrjakwekrlwlejfwjalfjldfafjkewjrklejwlkrjwekljrlkwejrklwjeklra"], ["user_id", 1], ["created_at", "2016-08-04 01:22:26.933210"], ["updated_at", "2016-08-04 01:22:26.933210"]]
+  [1m[35m (1.4ms)[0m  COMMIT
+Redirected to http://localhost:3000/snippets.9
+Completed 302 Found in 82ms (ActiveRecord: 20.0ms)
+
+
+Started GET "/snippets.9" for ::1 at 2016-08-03 18:22:26 -0700
+Processing by SnippetsController#index as 
+  [1m[36mSnippet Load (0.3ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1  ORDER BY created_at DESC[0m  [["private", "f"]]
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Ruby"]]
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "HTML"]]
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "CSS"]]
+  [1m[36mSnippet Load (0.1ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "JavaScript"]]
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Markdown"]]
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "Python"]]
+  Rendered snippets/index.html.erb within layouts/application (8.5ms)
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_navbar.html.erb (2.2ms)
+  Rendered layouts/_flash.html.erb (0.4ms)
+Completed 200 OK in 65ms (Views: 62.7ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/snippets/new" for ::1 at 2016-08-03 18:22:31 -0700
+Processing by SnippetsController#new as HTML
+  Rendered snippets/new.html.erb within layouts/application (1.4ms)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered layouts/_navbar.html.erb (1.1ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 30ms (Views: 29.6ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/snippets" for ::1 at 2016-08-03 18:23:14 -0700
+Processing by SnippetsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"wd2kmQ+g0Da1VDH2awFH03cQHldkHWBxMLttAuBq6izzF9/uwAPOMNcObRlaGtct2OZvLmIsylnlOddHyV8jDg==", "snippet"=>{"kind"=>"Ruby", "title"=>"print 1 to 100", "code"=>"(1..100).upto", "private"=>"0"}, "commit"=>"Post the Snippet"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSnippet Exists (0.2ms)[0m  SELECT  1 AS one FROM "snippets" WHERE "snippets"."title" = 'print 1 to 100' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "snippets" ("kind", "title", "code", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["kind", "Ruby"], ["title", "print 1 to 100"], ["code", "(1..100).upto"], ["user_id", 1], ["created_at", "2016-08-04 01:23:14.299995"], ["updated_at", "2016-08-04 01:23:14.299995"]]
+  [1m[35m (5.9ms)[0m  COMMIT
+Redirected to http://localhost:3000/snippets.10
+Completed 302 Found in 10ms (ActiveRecord: 6.6ms)
+
+
+Started GET "/snippets.10" for ::1 at 2016-08-03 18:23:14 -0700
+Processing by SnippetsController#index as 
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1  ORDER BY created_at DESC[0m  [["private", "f"]]
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Ruby"]]
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "HTML"]]
+  [1m[35mSnippet Load (0.1ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "CSS"]]
+  [1m[36mSnippet Load (0.1ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "JavaScript"]]
+  [1m[35mSnippet Load (0.1ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Markdown"]]
+  [1m[36mSnippet Load (0.1ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "Python"]]
+  Rendered snippets/index.html.erb within layouts/application (5.7ms)
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_navbar.html.erb (1.2ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 54ms (Views: 52.4ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/snippets/new" for ::1 at 2016-08-03 18:23:23 -0700
+Processing by SnippetsController#new as HTML
+  Rendered snippets/new.html.erb within layouts/application (1.3ms)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered layouts/_navbar.html.erb (1.3ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 42ms (Views: 41.3ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/snippets" for ::1 at 2016-08-03 18:23:59 -0700
+Processing by SnippetsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"FjM8haDF9DORTxEYHyKGjpq9LZkoyGtq0bSlUPSHDAAk+Ufyb2bqNfMVTfcuORZwNUtc4C75wUIENh8V3bLFIg==", "snippet"=>{"kind"=>"Ruby", "title"=>"hello world", "code"=>"print \"hello world\"", "private"=>"0"}, "commit"=>"Post the Snippet"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSnippet Exists (0.3ms)[0m  SELECT  1 AS one FROM "snippets" WHERE "snippets"."title" = 'hello world' LIMIT 1
+  [1m[36m (5.5ms)[0m  [1mROLLBACK[0m
+  Rendered snippets/new.html.erb within layouts/application (3.5ms)
+  Rendered layouts/_navbar.html.erb (0.6ms)
+  Rendered layouts/_flash.html.erb (0.2ms)
+Completed 200 OK in 60ms (Views: 49.9ms | ActiveRecord: 6.0ms)
+
+
+Started POST "/snippets" for ::1 at 2016-08-03 18:24:10 -0700
+Processing by SnippetsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"DMWjvIDHDYBHBRXY9+DUcTeDzUMl26ptkSBFg7hyzo0+D9jLT2QThiVfSTfG+0SPmHW8OiPqAEVEov/GkUcHrw==", "snippet"=>{"kind"=>"Ruby", "title"=>"hello codecore", "code"=>"print \"hello world\"", "private"=>"0"}, "commit"=>"Post the Snippet"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSnippet Exists (0.2ms)[0m  SELECT  1 AS one FROM "snippets" WHERE "snippets"."title" = 'hello codecore' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "snippets" ("kind", "title", "code", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["kind", "Ruby"], ["title", "hello codecore"], ["code", "print \"hello world\""], ["user_id", 1], ["created_at", "2016-08-04 01:24:10.250870"], ["updated_at", "2016-08-04 01:24:10.250870"]]
+  [1m[35m (5.7ms)[0m  COMMIT
+Redirected to http://localhost:3000/snippets.11
+Completed 302 Found in 11ms (ActiveRecord: 6.5ms)
+
+
+Started GET "/snippets.11" for ::1 at 2016-08-03 18:24:10 -0700
+Processing by SnippetsController#index as 
+  [1m[36mSnippet Load (0.3ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1  ORDER BY created_at DESC[0m  [["private", "f"]]
+  [1m[35mSnippet Load (0.4ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Ruby"]]
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "HTML"]]
+  [1m[35mSnippet Load (0.1ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "CSS"]]
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "JavaScript"]]
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Markdown"]]
+  [1m[36mSnippet Load (0.1ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "Python"]]
+  Rendered snippets/index.html.erb within layouts/application (8.7ms)
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_navbar.html.erb (3.7ms)
+  Rendered layouts/_flash.html.erb (0.4ms)
+Completed 200 OK in 73ms (Views: 70.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/snippets/new" for ::1 at 2016-08-03 18:24:18 -0700
+Processing by SnippetsController#new as HTML
+  Rendered snippets/new.html.erb within layouts/application (1.5ms)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered layouts/_navbar.html.erb (1.4ms)
+  Rendered layouts/_flash.html.erb (0.2ms)
+Completed 200 OK in 41ms (Views: 39.8ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/snippets" for ::1 at 2016-08-03 18:24:43 -0700
+Processing by SnippetsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"G3Gm4cQOUFt3I1GOgRDTobnWxvAscD549QnwzVSCgjIpu92WC61OXRV5DWGwC0NfFiC3iSpBlFAgi0qIfbdLEA==", "snippet"=>{"kind"=>"Ruby", "title"=>"dog & bone", "code"=>"print \"dog and bone\"", "private"=>"1"}, "commit"=>"Post the Snippet"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSnippet Exists (0.2ms)[0m  SELECT  1 AS one FROM "snippets" WHERE "snippets"."title" = 'dog & bone' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "snippets" ("kind", "title", "code", "private", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["kind", "Ruby"], ["title", "dog & bone"], ["code", "print \"dog and bone\""], ["private", "t"], ["user_id", 1], ["created_at", "2016-08-04 01:24:43.251872"], ["updated_at", "2016-08-04 01:24:43.251872"]]
+  [1m[35m (4.9ms)[0m  COMMIT
+Redirected to http://localhost:3000/snippets.12
+Completed 302 Found in 10ms (ActiveRecord: 5.6ms)
+
+
+Started GET "/snippets.12" for ::1 at 2016-08-03 18:24:43 -0700
+Processing by SnippetsController#index as 
+  [1m[36mSnippet Load (0.3ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1  ORDER BY created_at DESC[0m  [["private", "f"]]
+  [1m[35mSnippet Load (0.3ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Ruby"]]
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "HTML"]]
+  [1m[35mSnippet Load (0.7ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "CSS"]]
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "JavaScript"]]
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Markdown"]]
+  [1m[36mSnippet Load (0.1ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "Python"]]
+  Rendered snippets/index.html.erb within layouts/application (9.9ms)
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_navbar.html.erb (1.8ms)
+  Rendered layouts/_flash.html.erb (0.2ms)
+Completed 200 OK in 67ms (Views: 63.8ms | ActiveRecord: 2.2ms)
+
+
+Started GET "/snippets/new" for ::1 at 2016-08-03 18:24:50 -0700
+Processing by SnippetsController#new as HTML
+  Rendered snippets/new.html.erb within layouts/application (1.7ms)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered layouts/_navbar.html.erb (1.3ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 40ms (Views: 38.7ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/snippets" for ::1 at 2016-08-03 18:26:05 -0700
+Processing by SnippetsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"X7Uu1AMpiRVdHCaO/HuXGT9Fu4mV0f6+NFKDkNpTl2Vtf1WjzIqXEz9GemHNYAfnkLPK8JPgVJbh0DnV82ZeRw==", "snippet"=>{"kind"=>"Ruby", "title"=>"poker", "code"=>"def converter (cards)\r\n if cards == []\r\n   cards = []\r\n elsif cards.first.is_a? String\r\n   cards = encoder(cards)\r\n   cards.sort!\r\n elsif cards.first.is_a? Integer\r\n   cards.sort!\r\n   cards = decoder(cards)\r\n else\r\n   cards = nil\r\n end\r\nend\r\n\r\ndef encoder(cards)\r\n cards.map do |card|\r\n   value = card.split('').first\r\n   suit = card.split('').last\r\n\r\n   value = case value\r\n     when 'A' then 0\r\n     when 'T' then 9\r\n     when 'J' then 10\r\n     when 'Q' then 11\r\n     when 'K' then 12\r\n     else value.to_i - 1\r\n   end\r\n\r\n   suit = case suit\r\n   when 'c' then 0\r\n   when 'd' then 13\r\n   when 'h' then 26\r\n   when 's' then 39\r\n   end\r\n\r\n   suit + value\r\n end\r\nend\r\n\r\ndef decoder(cards)\r\n cards.map do |card|\r\n\r\n   suit = case card / 13\r\n     when 0 then 'c'\r\n     when 1 then 'd'\r\n     when 2 then 'h'\r\n     when 3 then 's'\r\n   end\r\n\r\n   number = card % 13 + 1\r\n   number = case number\r\n     when 1   then 'A'\r\n     when 10  then 'T'\r\n     when 11  then 'J'\r\n     when 12  then 'Q'\r\n     when 13  then 'K'\r\n     else number.to_s\r\n   end\r\n  suit + number\r\n end\r\nend\r\n\r\ndecode = [0, 51, 30, 22, 2]\r\ncode = ['Ac', 'Ks', '5h', 'Td', '3c']\r\nputs \"\\nCoder\"\r\np converter(code)\r\nputs \"\\nDecoder\"\r\np converter(decode)\r\nputs \"\\nEmpty Array\"\r\np converter([])\r\nputs \"\\nHash passed\"\r\np converter({})\r\n\r\n\r\n# Alternate 2 method -- assigning manually genereated hashes\r\n# cards = {\r\n#        \"Ac\" => 0,\r\n#        \"2c\" => 1,\r\n#        \"3c\" => 2,\r\n#        \"4c\" => 3,\r\n#        \"5c\" => 4,\r\n#        \"6c\" => 5,\r\n#        \"7c\" => 6,\r\n#        \"8c\" => 7,\r\n#        \"9c\" => 8,\r\n#        \"Tc\" => 9,\r\n#        \"Jc\" => 10,\r\n#        \"Qc\" => 11,\r\n#        \"Kc\" => 12,\r\n#        \"Ad\" => 13,\r\n#        \"2d\" => 14,\r\n#        \"3d\" => 15,\r\n#        \"4d\" => 16,\r\n#        \"5d\" => 17,\r\n#        \"6d\" => 18,\r\n#        \"7d\" => 19,\r\n#        \"8d\" => 20,\r\n#        \"9d\" => 21,\r\n#        \"Td\" => 22,\r\n#        \"Jd\" => 23,\r\n#        \"Qd\" => 24,\r\n#        \"Kd\" => 25,\r\n#        \"Ah\" => 26,\r\n#        \"2h\" => 27,\r\n#        \"3h\" => 28,\r\n#        \"4h\" => 29,\r\n#        \"5h\" => 30,\r\n#        \"6h\" => 31,\r\n#        \"7h\" => 31,\r\n#        \"8h\" => 32,\r\n#        \"9h\" => 33,\r\n#        \"Th\" => 34,\r\n#        \"Jh\" => 35,\r\n#        \"Qh\" => 36,\r\n#        \"Kh\" => 37,\r\n#        \"As\" => 39,\r\n#        \"2s\" => 40,\r\n#        \"3s\" => 41,\r\n#        \"4s\" => 42,\r\n#        \"5s\" => 43,\r\n#        \"6s\" => 44,\r\n#        \"7s\" => 45,\r\n#        \"8s\" => 46,\r\n#        \"9s\" => 47,\r\n#        \"Ts\" => 48,\r\n#        \"Js\" => 49,\r\n#        \"Qs\" => 50,\r\n#        \"Ks\" => 51,\r\n# }\r\n#\r\n# card_array = ['Ac', 'Ks', '5h', 'Td', '3c']\r\n#\r\n# def encode(array, hash)\r\n#    (array.map {|element| hash[element]}).sort\r\n# end\r\n#\r\n# def decode(array, hash)\r\n#    array.map {|element| hash.key(element)}\r\n# end\r\n#\r\n\r\ncards.each_with_object({}).with_index{|(key, hash), index | hash[key] = index}\r\n# p encode(card_array, cards)\r\n# p decode(encoded, cards)\r\n", "private"=>"0"}, "commit"=>"Post the Snippet"}
+  [1m[35mUser Load (0.9ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSnippet Exists (2.0ms)[0m  SELECT  1 AS one FROM "snippets" WHERE "snippets"."title" = 'poker' LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "snippets" ("kind", "title", "code", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["kind", "Ruby"], ["title", "poker"], ["code", "def converter (cards)\r\n if cards == []\r\n   cards = []\r\n elsif cards.first.is_a? String\r\n   cards = encoder(cards)\r\n   cards.sort!\r\n elsif cards.first.is_a? Integer\r\n   cards.sort!\r\n   cards = decoder(cards)\r\n else\r\n   cards = nil\r\n end\r\nend\r\n\r\ndef encoder(cards)\r\n cards.map do |card|\r\n   value = card.split('').first\r\n   suit = card.split('').last\r\n\r\n   value = case value\r\n     when 'A' then 0\r\n     when 'T' then 9\r\n     when 'J' then 10\r\n     when 'Q' then 11\r\n     when 'K' then 12\r\n     else value.to_i - 1\r\n   end\r\n\r\n   suit = case suit\r\n   when 'c' then 0\r\n   when 'd' then 13\r\n   when 'h' then 26\r\n   when 's' then 39\r\n   end\r\n\r\n   suit + value\r\n end\r\nend\r\n\r\ndef decoder(cards)\r\n cards.map do |card|\r\n\r\n   suit = case card / 13\r\n     when 0 then 'c'\r\n     when 1 then 'd'\r\n     when 2 then 'h'\r\n     when 3 then 's'\r\n   end\r\n\r\n   number = card % 13 + 1\r\n   number = case number\r\n     when 1   then 'A'\r\n     when 10  then 'T'\r\n     when 11  then 'J'\r\n     when 12  then 'Q'\r\n     when 13  then 'K'\r\n     else number.to_s\r\n   end\r\n  suit + number\r\n end\r\nend\r\n\r\ndecode = [0, 51, 30, 22, 2]\r\ncode = ['Ac', 'Ks', '5h', 'Td', '3c']\r\nputs \"\\nCoder\"\r\np converter(code)\r\nputs \"\\nDecoder\"\r\np converter(decode)\r\nputs \"\\nEmpty Array\"\r\np converter([])\r\nputs \"\\nHash passed\"\r\np converter({})\r\n\r\n\r\n# Alternate 2 method -- assigning manually genereated hashes\r\n# cards = {\r\n#        \"Ac\" => 0,\r\n#        \"2c\" => 1,\r\n#        \"3c\" => 2,\r\n#        \"4c\" => 3,\r\n#        \"5c\" => 4,\r\n#        \"6c\" => 5,\r\n#        \"7c\" => 6,\r\n#        \"8c\" => 7,\r\n#        \"9c\" => 8,\r\n#        \"Tc\" => 9,\r\n#        \"Jc\" => 10,\r\n#        \"Qc\" => 11,\r\n#        \"Kc\" => 12,\r\n#        \"Ad\" => 13,\r\n#        \"2d\" => 14,\r\n#        \"3d\" => 15,\r\n#        \"4d\" => 16,\r\n#        \"5d\" => 17,\r\n#        \"6d\" => 18,\r\n#        \"7d\" => 19,\r\n#        \"8d\" => 20,\r\n#        \"9d\" => 21,\r\n#        \"Td\" => 22,\r\n#        \"Jd\" => 23,\r\n#        \"Qd\" => 24,\r\n#        \"Kd\" => 25,\r\n#        \"Ah\" => 26,\r\n#        \"2h\" => 27,\r\n#        \"3h\" => 28,\r\n#        \"4h\" => 29,\r\n#        \"5h\" => 30,\r\n#        \"6h\" => 31,\r\n#        \"7h\" => 31,\r\n#        \"8h\" => 32,\r\n#        \"9h\" => 33,\r\n#        \"Th\" => 34,\r\n#        \"Jh\" => 35,\r\n#        \"Qh\" => 36,\r\n#        \"Kh\" => 37,\r\n#        \"As\" => 39,\r\n#        \"2s\" => 40,\r\n#        \"3s\" => 41,\r\n#        \"4s\" => 42,\r\n#        \"5s\" => 43,\r\n#        \"6s\" => 44,\r\n#        \"7s\" => 45,\r\n#        \"8s\" => 46,\r\n#        \"9s\" => 47,\r\n#        \"Ts\" => 48,\r\n#        \"Js\" => 49,\r\n#        \"Qs\" => 50,\r\n#        \"Ks\" => 51,\r\n# }\r\n#\r\n# card_array = ['Ac', 'Ks', '5h', 'Td', '3c']\r\n#\r\n# def encode(array, hash)\r\n#    (array.map {|element| hash[element]}).sort\r\n# end\r\n#\r\n# def decode(array, hash)\r\n#    array.map {|element| hash.key(element)}\r\n# end\r\n#\r\n\r\ncards.each_with_object({}).with_index{|(key, hash), index | hash[key] = index}\r\n# p encode(card_array, cards)\r\n# p decode(encoded, cards)\r\n"], ["user_id", 1], ["created_at", "2016-08-04 01:26:05.095068"], ["updated_at", "2016-08-04 01:26:05.095068"]]
+  [1m[35m (5.4ms)[0m  COMMIT
+Redirected to http://localhost:3000/snippets.13
+Completed 302 Found in 71ms (ActiveRecord: 9.5ms)
+
+
+Started GET "/snippets.13" for ::1 at 2016-08-03 18:26:05 -0700
+Processing by SnippetsController#index as 
+  [1m[36mSnippet Load (0.3ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1  ORDER BY created_at DESC[0m  [["private", "f"]]
+  [1m[35mSnippet Load (0.3ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Ruby"]]
+  [1m[36mSnippet Load (0.4ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "HTML"]]
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "CSS"]]
+  [1m[36mSnippet Load (0.4ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "JavaScript"]]
+  [1m[35mSnippet Load (0.3ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Markdown"]]
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "Python"]]
+  Rendered snippets/index.html.erb within layouts/application (31.1ms)
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_navbar.html.erb (4.0ms)
+  Rendered layouts/_flash.html.erb (0.4ms)
+Completed 200 OK in 287ms (Views: 279.4ms | ActiveRecord: 2.7ms)
+
+
+Started GET "/secret-snippets" for ::1 at 2016-08-03 18:26:27 -0700
+Processing by SnippetsController#secret_snippets as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSnippet Load (0.4ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."user_id" = $1 AND "snippets"."private" = $2  ORDER BY created_at DESC  [["user_id", 1], ["private", "t"]]
+  [1m[36mSnippet Load (0.3ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."user_id" = $1 AND "snippets"."private" = $2 AND "snippets"."kind" = $3  ORDER BY created_at DESC[0m  [["user_id", 1], ["private", "t"], ["kind", "ruby"]]
+  [1m[35mSnippet Load (0.4ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."user_id" = $1 AND "snippets"."private" = $2 AND "snippets"."kind" = $3  ORDER BY created_at DESC  [["user_id", 1], ["private", "t"], ["kind", "html"]]
+  [1m[36mSnippet Load (0.4ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."user_id" = $1 AND "snippets"."private" = $2 AND "snippets"."kind" = $3  ORDER BY created_at DESC[0m  [["user_id", 1], ["private", "t"], ["kind", "CSS"]]
+  [1m[35mSnippet Load (0.4ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."user_id" = $1 AND "snippets"."private" = $2 AND "snippets"."kind" = $3  ORDER BY created_at DESC  [["user_id", 1], ["private", "t"], ["kind", "JavaScript"]]
+  [1m[36mSnippet Load (0.4ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."user_id" = $1 AND "snippets"."private" = $2 AND "snippets"."kind" = $3  ORDER BY created_at DESC[0m  [["user_id", 1], ["private", "t"], ["kind", "Markdown"]]
+  [1m[35mSnippet Load (0.4ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."user_id" = $1 AND "snippets"."private" = $2 AND "snippets"."kind" = $3  ORDER BY created_at DESC  [["user_id", 1], ["private", "t"], ["kind", "Python"]]
+  Rendered snippets/secret_snippets.html.erb within layouts/application (17.3ms)
+  Rendered layouts/_navbar.html.erb (1.7ms)
+  Rendered layouts/_flash.html.erb (0.3ms)
+Completed 200 OK in 225ms (Views: 117.5ms | ActiveRecord: 3.0ms)
+
+
+Started GET "/snippets/new" for ::1 at 2016-08-03 18:26:36 -0700
+Processing by SnippetsController#new as HTML
+  Rendered snippets/new.html.erb within layouts/application (7.7ms)
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered layouts/_navbar.html.erb (2.0ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 133ms (Views: 131.3ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2016-08-03 18:26:37 -0700
 Processing by SnippetsController#index as HTML
   [1m[35mSnippet Load (0.4ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1  ORDER BY created_at DESC  [["private", "f"]]
   [1m[36mSnippet Load (0.3ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "Ruby"]]
   [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "HTML"]]
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "CSS"]]
-  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "JavaScript"]]
-  Rendered snippets/index.html.erb within layouts/application (8.5ms)
+  [1m[36mSnippet Load (0.6ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "CSS"]]
+  [1m[35mSnippet Load (0.3ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "JavaScript"]]
+  [1m[36mSnippet Load (0.4ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "Markdown"]]
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Python"]]
+  Rendered snippets/index.html.erb within layouts/application (17.3ms)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
   Rendered layouts/_navbar.html.erb (1.9ms)
-  Rendered layouts/_flash.html.erb (0.5ms)
-Completed 200 OK in 5431ms (Views: 5413.3ms | ActiveRecord: 2.2ms)
-
-
-Started GET "/assets/font-awesome.self-c1a7a80b6536c3397a1a212c9bd22298ae69260ee343d00b60d7f41fa54a59a8.css?body=1" for ::1 at 2016-06-23 16:25:54 -0700
-
-
-Started GET "/assets/custom.self-dad19b6f403155c734157f421d3742ed03091944b1f69c43e72ebbf63231b8e3.css?body=1" for ::1 at 2016-06-23 16:25:54 -0700
-
-
-Started GET "/assets/pygments.self-87f52c8b338cd237146f4475f140ff233f73ccecc5e7a0734a306bd322163511.css?body=1" for ::1 at 2016-06-23 16:25:54 -0700
-
-
-Started GET "/assets/sessions.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-06-23 16:25:54 -0700
-
-
-Started GET "/assets/users.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-06-23 16:25:54 -0700
-
-
-Started GET "/assets/snippets.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-06-23 16:25:54 -0700
-
-
-Started GET "/assets/application.self-167193cd81d9330d9ddb5c4ec7b44214fea529aa8a94f3a86e6526e4f652fc02.css?body=1" for ::1 at 2016-06-23 16:25:54 -0700
-
-
-Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-06-23 16:25:54 -0700
-
-
-Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-06-23 16:25:54 -0700
-
-
-Started GET "/assets/bootstrap.self-e7dfe29e9f594eb85eead62e3ed95df169b0fc3d21fe0468a812e399c9fcc604.js?body=1" for ::1 at 2016-06-23 16:25:54 -0700
-
-
-Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-06-23 16:25:54 -0700
-
-
-Started GET "/assets/sessions.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-06-23 16:25:54 -0700
-
-
-Started GET "/assets/snippets.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-06-23 16:25:54 -0700
-
-
-Started GET "/assets/users.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-06-23 16:25:54 -0700
-
-
-Started GET "/assets/application.self-f8806224e027f3e3f0138ea9ce99319e298dfdb323304d1f1be6eae8e8c74724.js?body=1" for ::1 at 2016-06-23 16:25:54 -0700
-
-
-Started GET "/assets/fontawesome-webfont-ff82aeed6b9bb6701696c84d1b223d2e682eb78c89117a438ce6cfea8c498995.woff2?v=4.5.0" for ::1 at 2016-06-23 16:25:54 -0700
-
-
-Started GET "/" for ::1 at 2016-06-23 16:29:40 -0700
-Processing by SnippetsController#index as HTML
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1  ORDER BY created_at DESC[0m  [["private", "f"]]
-  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Ruby"]]
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "HTML"]]
-  [1m[35mSnippet Load (0.1ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "CSS"]]
-  [1m[36mSnippet Load (0.1ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "JavaScript"]]
-  Rendered snippets/index.html.erb within layouts/application (4.0ms)
-  Rendered layouts/_navbar.html.erb (23.3ms)
   Rendered layouts/_flash.html.erb (0.1ms)
-Completed 200 OK in 1283ms (Views: 1281.0ms | ActiveRecord: 0.9ms)
+Completed 200 OK in 74ms (Views: 69.0ms | ActiveRecord: 2.7ms)
 
 
-Started GET "/assets/custom.self-cde33f3294a5cf76e70b48877a7b3d3942d5b06dde55ba253d56573eaa5e8668.css?body=1" for ::1 at 2016-06-23 16:29:41 -0700
-
-
-Started GET "/assets/pygments.self-87f52c8b338cd237146f4475f140ff233f73ccecc5e7a0734a306bd322163511.css?body=1" for ::1 at 2016-06-23 16:29:41 -0700
-
-
-Started GET "/assets/application.self-167193cd81d9330d9ddb5c4ec7b44214fea529aa8a94f3a86e6526e4f652fc02.css?body=1" for ::1 at 2016-06-23 16:29:41 -0700
-
-
-Started GET "/assets/sessions.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-06-23 16:29:41 -0700
-
-
-Started GET "/assets/snippets.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-06-23 16:29:41 -0700
-
-
-Started GET "/assets/users.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-06-23 16:29:41 -0700
-
-
-Started GET "/assets/font-awesome.self-c1a7a80b6536c3397a1a212c9bd22298ae69260ee343d00b60d7f41fa54a59a8.css?body=1" for ::1 at 2016-06-23 16:29:41 -0700
-
-
-Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-06-23 16:29:41 -0700
-
-
-Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-06-23 16:29:41 -0700
-
-
-Started GET "/assets/bootstrap.self-e7dfe29e9f594eb85eead62e3ed95df169b0fc3d21fe0468a812e399c9fcc604.js?body=1" for ::1 at 2016-06-23 16:29:41 -0700
-
-
-Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-06-23 16:29:41 -0700
-
-
-Started GET "/assets/sessions.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-06-23 16:29:41 -0700
-
-
-Started GET "/assets/snippets.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-06-23 16:29:41 -0700
-
-
-Started GET "/assets/users.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-06-23 16:29:41 -0700
-
-
-Started GET "/assets/application.self-f8806224e027f3e3f0138ea9ce99319e298dfdb323304d1f1be6eae8e8c74724.js?body=1" for ::1 at 2016-06-23 16:29:41 -0700
-
-
-Started GET "/assets/fontawesome-webfont-ff82aeed6b9bb6701696c84d1b223d2e682eb78c89117a438ce6cfea8c498995.woff2?v=4.5.0" for ::1 at 2016-06-23 16:29:41 -0700
-
-
-Started GET "/" for ::1 at 2016-06-23 16:39:19 -0700
-  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
-Processing by SnippetsController#index as HTML
-  [1m[35mSnippet Load (0.4ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1  ORDER BY created_at DESC  [["private", "f"]]
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "Ruby"]]
-  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "HTML"]]
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "CSS"]]
-  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "JavaScript"]]
-  Rendered snippets/index.html.erb within layouts/application (11.1ms)
-  Rendered layouts/_navbar.html.erb (1.5ms)
-  Rendered layouts/_flash.html.erb (0.5ms)
-Completed 200 OK in 2617ms (Views: 2590.1ms | ActiveRecord: 2.5ms)
-
-
-Started GET "/users/new" for ::1 at 2016-06-23 16:39:26 -0700
-Processing by UsersController#new as HTML
-  Rendered users/_user_form.html.erb (385.5ms)
-  Rendered users/new.html.erb within layouts/application (388.2ms)
-  Rendered layouts/_navbar.html.erb (3.2ms)
-  Rendered layouts/_flash.html.erb (0.5ms)
-Completed 200 OK in 473ms (Views: 435.2ms | ActiveRecord: 21.2ms)
-
-
-Started GET "/sessions/new" for ::1 at 2016-06-23 16:39:27 -0700
-Processing by SessionsController#new as HTML
-  Rendered sessions/new.html.erb within layouts/application (1.4ms)
-  Rendered layouts/_navbar.html.erb (0.4ms)
-  Rendered layouts/_flash.html.erb (0.1ms)
-Completed 200 OK in 46ms (Views: 45.1ms | ActiveRecord: 0.0ms)
-
-
-Started POST "/sessions" for ::1 at 2016-06-23 16:39:28 -0700
-Processing by SessionsController#create as HTML
-  Parameters: {"utf8"=>"✓", "authenticity_token"=>"400kqVyg8L5GDDBngrEOeQZXmoO4OqnKGomoC362Gcxm9jbne2hb7ehoET0jmh7mRVpOeZaX4SIdnUOeUZzZ6Q==", "session"=>{"email"=>"a@abc.com", "password"=>"[FILTERED]"}, "commit"=>"Sign In"}
-  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "a@abc.com"]]
-  Rendered sessions/new.html.erb within layouts/application (2.0ms)
-  Rendered layouts/_navbar.html.erb (0.3ms)
-  Rendered layouts/_flash.html.erb (0.1ms)
-Completed 200 OK in 43ms (Views: 38.3ms | ActiveRecord: 0.3ms)
-
-
-Started GET "/users/new" for ::1 at 2016-06-23 16:39:31 -0700
-Processing by UsersController#new as HTML
-  Rendered users/_user_form.html.erb (2.5ms)
-  Rendered users/new.html.erb within layouts/application (3.8ms)
-  Rendered layouts/_navbar.html.erb (0.4ms)
-  Rendered layouts/_flash.html.erb (0.1ms)
-Completed 200 OK in 42ms (Views: 41.0ms | ActiveRecord: 0.0ms)
-
-
-Started GET "/sessions/new" for ::1 at 2016-06-23 16:40:07 -0700
-Processing by SessionsController#new as HTML
-  Rendered sessions/new.html.erb within layouts/application (0.7ms)
-  Rendered layouts/_navbar.html.erb (0.4ms)
-  Rendered layouts/_flash.html.erb (0.1ms)
-Completed 200 OK in 35ms (Views: 34.3ms | ActiveRecord: 0.0ms)
-
-
-Started POST "/sessions" for ::1 at 2016-06-23 16:40:11 -0700
-Processing by SessionsController#create as HTML
-  Parameters: {"utf8"=>"✓", "authenticity_token"=>"cJGE/B2JdTxUNtKVaO+wNCOX0W/Apr8nsM3sAqMbSEL1KpayOkHeb/pS88/JxKCrYJoFle4L98+32QeXjDGIZw==", "session"=>{"email"=>"a@abc.com", "password"=>"[FILTERED]"}, "commit"=>"Sign In"}
-  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1  [["email", "a@abc.com"]]
-  Rendered sessions/new.html.erb within layouts/application (0.9ms)
-  Rendered layouts/_navbar.html.erb (0.4ms)
-  Rendered layouts/_flash.html.erb (0.1ms)
-Completed 200 OK in 39ms (Views: 37.6ms | ActiveRecord: 0.3ms)
-
-
-Started GET "/users/new" for ::1 at 2016-06-23 16:40:12 -0700
-Processing by UsersController#new as HTML
-  Rendered users/_user_form.html.erb (2.4ms)
-  Rendered users/new.html.erb within layouts/application (3.4ms)
-  Rendered layouts/_navbar.html.erb (0.4ms)
-  Rendered layouts/_flash.html.erb (0.1ms)
-Completed 200 OK in 44ms (Views: 43.6ms | ActiveRecord: 0.0ms)
-
-
-Started POST "/users" for ::1 at 2016-06-23 16:40:22 -0700
-Processing by UsersController#create as HTML
-  Parameters: {"utf8"=>"✓", "authenticity_token"=>"uoWZWAzwghXRJ/bMmXmep1RwNPS4bZQ/BkzlPAs62dM/PosWKzgpRn9D15Y4Uo44F33gDpbA3NcBWA6pJBAZ9g==", "user"=>{"first_name"=>"angela", "last_name"=>"ji", "email"=>"a@abc.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Create Account"}
-  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
-  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'a@abc.com' LIMIT 1
-  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["first_name", "angela"], ["last_name", "ji"], ["email", "a@abc.com"], ["password_digest", "$2a$10$g0kVFevIDNC/NESiX9/TFOEM.QpsIK.OpyRBMIE93m5il0P58qHyq"], ["created_at", "2016-06-23 23:40:22.142173"], ["updated_at", "2016-06-23 23:40:22.142173"]]
-  [1m[35m (7.0ms)[0m  COMMIT
-Redirected to http://localhost:3000/
-Completed 302 Found in 109ms (ActiveRecord: 7.9ms)
-
-
-Started GET "/" for ::1 at 2016-06-23 16:40:22 -0700
-Processing by SnippetsController#index as HTML
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1  ORDER BY created_at DESC[0m  [["private", "f"]]
-  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Ruby"]]
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "HTML"]]
-  [1m[35mSnippet Load (0.1ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "CSS"]]
-  [1m[36mSnippet Load (0.1ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "JavaScript"]]
-  Rendered snippets/index.html.erb within layouts/application (3.7ms)
-  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
-  Rendered layouts/_navbar.html.erb (2.3ms)
-  Rendered layouts/_flash.html.erb (0.1ms)
-Completed 200 OK in 41ms (Views: 39.3ms | ActiveRecord: 1.0ms)
-
-
-Started GET "/snippets/new" for ::1 at 2016-06-23 16:40:26 -0700
-Processing by SnippetsController#new as HTML
-  Rendered snippets/new.html.erb within layouts/application (15.1ms)
-  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
-  Rendered layouts/_navbar.html.erb (1.5ms)
-  Rendered layouts/_flash.html.erb (0.1ms)
-Completed 200 OK in 57ms (Views: 50.7ms | ActiveRecord: 0.8ms)
-
-
-Started POST "/snippets" for ::1 at 2016-06-23 16:41:05 -0700
-Processing by SnippetsController#create as HTML
-  Parameters: {"utf8"=>"✓", "authenticity_token"=>"fvRaVf40hznnCCPdqoCsnlWv+KSR5eXwls7H01q5ZlH7T0gb2fwsaklsAocLq7wBFqIsXr9IrRiR2ixGdZOmdA==", "snippet"=>{"kind"=>"Ruby", "title"=>"is prime? ", "code"=>"def is_prime?(num)\r\n  return false if num <= 1\r\n  Math.sqrt(num).to_i.downto(2).each {|i| return false if num % i == 0}\r\n  true\r\nend", "private"=>"0"}, "commit"=>"Post the Snippet"}
-  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
-  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
-  [1m[35mSnippet Exists (0.3ms)[0m  SELECT  1 AS one FROM "snippets" WHERE "snippets"."title" = 'is prime? ' LIMIT 1
-  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "snippets" ("kind", "title", "code", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["kind", "Ruby"], ["title", "is prime? "], ["code", "def is_prime?(num)\r\n  return false if num <= 1\r\n  Math.sqrt(num).to_i.downto(2).each {|i| return false if num % i == 0}\r\n  true\r\nend"], ["user_id", 1], ["created_at", "2016-06-23 23:41:05.631365"], ["updated_at", "2016-06-23 23:41:05.631365"]]
-  [1m[35m (5.9ms)[0m  COMMIT
-Redirected to http://localhost:3000/snippets.1
-Completed 302 Found in 38ms (ActiveRecord: 7.1ms)
-
-
-Started GET "/snippets.1" for ::1 at 2016-06-23 16:41:05 -0700
-Processing by SnippetsController#index as 
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1  ORDER BY created_at DESC[0m  [["private", "f"]]
-  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Ruby"]]
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "HTML"]]
-  [1m[35mSnippet Load (0.1ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "CSS"]]
-  [1m[36mSnippet Load (0.1ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "JavaScript"]]
-  Rendered snippets/index.html.erb within layouts/application (6.4ms)
+Started GET "/secret-snippets" for ::1 at 2016-08-03 18:26:47 -0700
+Processing by SnippetsController#secret_snippets as HTML
   [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
-  Rendered layouts/_navbar.html.erb (3.2ms)
-  Rendered layouts/_flash.html.erb (0.5ms)
-Completed 200 OK in 68ms (Views: 66.0ms | ActiveRecord: 1.3ms)
+  [1m[36mSnippet Load (0.5ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."user_id" = $1 AND "snippets"."private" = $2  ORDER BY created_at DESC[0m  [["user_id", 1], ["private", "t"]]
+  [1m[35mSnippet Load (0.3ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."user_id" = $1 AND "snippets"."private" = $2 AND "snippets"."kind" = $3  ORDER BY created_at DESC  [["user_id", 1], ["private", "t"], ["kind", "ruby"]]
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."user_id" = $1 AND "snippets"."private" = $2 AND "snippets"."kind" = $3  ORDER BY created_at DESC[0m  [["user_id", 1], ["private", "t"], ["kind", "html"]]
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."user_id" = $1 AND "snippets"."private" = $2 AND "snippets"."kind" = $3  ORDER BY created_at DESC  [["user_id", 1], ["private", "t"], ["kind", "CSS"]]
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."user_id" = $1 AND "snippets"."private" = $2 AND "snippets"."kind" = $3  ORDER BY created_at DESC[0m  [["user_id", 1], ["private", "t"], ["kind", "JavaScript"]]
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."user_id" = $1 AND "snippets"."private" = $2 AND "snippets"."kind" = $3  ORDER BY created_at DESC  [["user_id", 1], ["private", "t"], ["kind", "Markdown"]]
+  [1m[36mSnippet Load (0.1ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."user_id" = $1 AND "snippets"."private" = $2 AND "snippets"."kind" = $3  ORDER BY created_at DESC[0m  [["user_id", 1], ["private", "t"], ["kind", "Python"]]
+  Rendered snippets/secret_snippets.html.erb within layouts/application (13.1ms)
+  Rendered layouts/_navbar.html.erb (0.9ms)
+  Rendered layouts/_flash.html.erb (0.2ms)
+Completed 200 OK in 85ms (Views: 80.9ms | ActiveRecord: 2.0ms)
 
 
-Started GET "/snippets/1" for ::1 at 2016-06-23 16:41:08 -0700
+Started GET "/snippets/13" for ::1 at 2016-08-03 18:40:14 -0700
+Processing by SnippetsController#show as HTML
+  Parameters: {"id"=>"13"}
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 13]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered snippets/show.html.erb within layouts/application (18.5ms)
+  Rendered layouts/_navbar.html.erb (0.7ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 90ms (Views: 87.6ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2016-08-03 18:41:21 -0700
+Processing by SnippetsController#index as HTML
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1  ORDER BY created_at DESC[0m  [["private", "f"]]
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Ruby"]]
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "HTML"]]
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "CSS"]]
+  [1m[36mSnippet Load (0.1ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "JavaScript"]]
+  [1m[35mSnippet Load (0.1ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Markdown"]]
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "Python"]]
+  Rendered snippets/index.html.erb within layouts/application (8.1ms)
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_navbar.html.erb (1.3ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 77ms (Views: 75.1ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/snippets/1" for ::1 at 2016-08-03 18:41:49 -0700
 Processing by SnippetsController#show as HTML
   Parameters: {"id"=>"1"}
   [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 1]]
   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
   [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
-  Rendered snippets/show.html.erb within layouts/application (15.6ms)
-  Rendered layouts/_navbar.html.erb (0.8ms)
-  Rendered layouts/_flash.html.erb (0.2ms)
-Completed 200 OK in 49ms (Views: 46.9ms | ActiveRecord: 0.4ms)
+  Rendered snippets/show.html.erb within layouts/application (2.9ms)
+  Rendered layouts/_navbar.html.erb (0.5ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 42ms (Views: 40.2ms | ActiveRecord: 0.4ms)
 
 
-Started GET "/snippets/1" for ::1 at 2016-06-23 16:42:20 -0700
+Started GET "/snippets/4" for ::1 at 2016-08-03 18:42:54 -0700
 Processing by SnippetsController#show as HTML
-  Parameters: {"id"=>"1"}
-  [1m[35mSnippet Load (0.2ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 1]]
+  Parameters: {"id"=>"4"}
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 4]]
   [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
   [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
-  Rendered snippets/show.html.erb within layouts/application (11.2ms)
-  Rendered layouts/_navbar.html.erb (0.7ms)
-  Rendered layouts/_flash.html.erb (0.1ms)
-Completed 200 OK in 53ms (Views: 42.9ms | ActiveRecord: 2.6ms)
-
-
-Started GET "/assets/font-awesome.self-c1a7a80b6536c3397a1a212c9bd22298ae69260ee343d00b60d7f41fa54a59a8.css?body=1" for ::1 at 2016-06-23 16:42:20 -0700
-
-
-Started GET "/assets/custom.self-cde33f3294a5cf76e70b48877a7b3d3942d5b06dde55ba253d56573eaa5e8668.css?body=1" for ::1 at 2016-06-23 16:42:20 -0700
-
-
-Started GET "/assets/pygments.self-87f52c8b338cd237146f4475f140ff233f73ccecc5e7a0734a306bd322163511.css?body=1" for ::1 at 2016-06-23 16:42:20 -0700
-
-
-Started GET "/assets/sessions.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-06-23 16:42:20 -0700
-
-
-Started GET "/assets/snippets.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-06-23 16:42:20 -0700
-
-
-Started GET "/assets/users.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-06-23 16:42:20 -0700
-
-
-Started GET "/assets/application.self-167193cd81d9330d9ddb5c4ec7b44214fea529aa8a94f3a86e6526e4f652fc02.css?body=1" for ::1 at 2016-06-23 16:42:20 -0700
-
-
-Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-06-23 16:42:20 -0700
-
-
-Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-06-23 16:42:20 -0700
-
-
-Started GET "/assets/bootstrap.self-e7dfe29e9f594eb85eead62e3ed95df169b0fc3d21fe0468a812e399c9fcc604.js?body=1" for ::1 at 2016-06-23 16:42:20 -0700
-
-
-Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-06-23 16:42:20 -0700
-
-
-Started GET "/assets/sessions.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-06-23 16:42:20 -0700
-
-
-Started GET "/assets/snippets.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-06-23 16:42:20 -0700
-
-
-Started GET "/assets/users.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-06-23 16:42:20 -0700
-
-
-Started GET "/assets/application.self-f8806224e027f3e3f0138ea9ce99319e298dfdb323304d1f1be6eae8e8c74724.js?body=1" for ::1 at 2016-06-23 16:42:20 -0700
-
-
-Started GET "/assets/fontawesome-webfont-ff82aeed6b9bb6701696c84d1b223d2e682eb78c89117a438ce6cfea8c498995.woff2?v=4.5.0" for ::1 at 2016-06-23 16:42:21 -0700
-
-
-Started GET "/secret-snippets" for ::1 at 2016-06-23 16:42:25 -0700
-Processing by SnippetsController#secret_snippets as HTML
-  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
-  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."user_id" = $1 AND "snippets"."private" = $2  ORDER BY created_at DESC  [["user_id", 1], ["private", "t"]]
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."user_id" = $1 AND "snippets"."private" = $2 AND "snippets"."kind" = $3  ORDER BY created_at DESC[0m  [["user_id", 1], ["private", "t"], ["kind", "Ruby"]]
-  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."user_id" = $1 AND "snippets"."private" = $2 AND "snippets"."kind" = $3  ORDER BY created_at DESC  [["user_id", 1], ["private", "t"], ["kind", "HTML"]]
-  [1m[36mSnippet Load (0.3ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."user_id" = $1 AND "snippets"."private" = $2 AND "snippets"."kind" = $3  ORDER BY created_at DESC[0m  [["user_id", 1], ["private", "t"], ["kind", "CSS"]]
-  [1m[35mSnippet Load (0.3ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."user_id" = $1 AND "snippets"."private" = $2 AND "snippets"."kind" = $3  ORDER BY created_at DESC  [["user_id", 1], ["private", "t"], ["kind", "JavaScript"]]
-  Rendered snippets/secret_snippets.html.erb within layouts/application (5.9ms)
-  Rendered layouts/_navbar.html.erb (1.8ms)
-  Rendered layouts/_flash.html.erb (0.1ms)
-Completed 200 OK in 85ms (Views: 46.7ms | ActiveRecord: 1.3ms)
-
-
-Started GET "/snippets/new" for ::1 at 2016-06-23 16:42:26 -0700
-Processing by SnippetsController#new as HTML
-  Rendered snippets/new.html.erb within layouts/application (2.3ms)
-  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
-  Rendered layouts/_navbar.html.erb (2.3ms)
-  Rendered layouts/_flash.html.erb (0.2ms)
-Completed 200 OK in 48ms (Views: 47.2ms | ActiveRecord: 0.3ms)
-
-
-Started POST "/snippets" for ::1 at 2016-06-23 16:42:39 -0700
-Processing by SnippetsController#create as HTML
-  Parameters: {"utf8"=>"✓", "authenticity_token"=>"wM30KTWtOe0SglFA22lbC1DFjsE1gY0aOYeZqIhN88NFduZnEmWSvrzmcBp6QkuUE8haOxssxfI+k3I9p2cz5g==", "snippet"=>{"kind"=>"HTML", "title"=>"", "code"=>"<h1> HELLO WORLD </h1>", "private"=>"0"}, "commit"=>"Post the Snippet"}
-  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
-  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
-  [1m[35mSnippet Exists (0.5ms)[0m  SELECT  1 AS one FROM "snippets" WHERE "snippets"."title" = '' LIMIT 1
-  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
-  Rendered snippets/new.html.erb within layouts/application (3.2ms)
+  Rendered snippets/show.html.erb within layouts/application (1.8ms)
   Rendered layouts/_navbar.html.erb (0.6ms)
   Rendered layouts/_flash.html.erb (0.1ms)
-Completed 200 OK in 42ms (Views: 36.1ms | ActiveRecord: 0.9ms)
+Completed 200 OK in 37ms (Views: 35.5ms | ActiveRecord: 0.4ms)
 
 
-Started POST "/snippets" for ::1 at 2016-06-23 16:42:47 -0700
-Processing by SnippetsController#create as HTML
-  Parameters: {"utf8"=>"✓", "authenticity_token"=>"bjKSKxAHdlN55njlELfYKIsPifymXyhG+kjDyU9sEjbriYBlN8/dANeCWb+xnMi3yAJdBojyYK79XChcYEbSEw==", "snippet"=>{"kind"=>"HTML", "title"=>"testing 1", "code"=>"<h1> HELLO WORLD </h1>", "private"=>"0"}, "commit"=>"Post the Snippet"}
-  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
-  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
-  [1m[35mSnippet Exists (0.3ms)[0m  SELECT  1 AS one FROM "snippets" WHERE "snippets"."title" = 'testing 1' LIMIT 1
-  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "snippets" ("kind", "title", "code", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["kind", "HTML"], ["title", "testing 1"], ["code", "<h1> HELLO WORLD </h1>"], ["user_id", 1], ["created_at", "2016-06-23 23:42:47.071109"], ["updated_at", "2016-06-23 23:42:47.071109"]]
-  [1m[35m (5.7ms)[0m  COMMIT
-Redirected to http://localhost:3000/snippets.2
-Completed 302 Found in 11ms (ActiveRecord: 6.5ms)
-
-
-Started GET "/snippets.2" for ::1 at 2016-06-23 16:42:47 -0700
-Processing by SnippetsController#index as 
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1  ORDER BY created_at DESC[0m  [["private", "f"]]
-  [1m[35mSnippet Load (0.1ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Ruby"]]
-  [1m[36mSnippet Load (0.1ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "HTML"]]
-  [1m[35mSnippet Load (0.1ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "CSS"]]
-  [1m[36mSnippet Load (0.1ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "JavaScript"]]
-  Rendered snippets/index.html.erb within layouts/application (4.0ms)
-  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
-  Rendered layouts/_navbar.html.erb (1.4ms)
+Started GET "/snippets/4/edit" for ::1 at 2016-08-03 18:42:56 -0700
+Processing by SnippetsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered snippets/_snippet_form.html.erb (3.4ms)
+  Rendered snippets/edit.html.erb within layouts/application (7.2ms)
+  Rendered layouts/_navbar.html.erb (0.6ms)
   Rendered layouts/_flash.html.erb (0.1ms)
-Completed 200 OK in 62ms (Views: 60.5ms | ActiveRecord: 0.9ms)
+Completed 200 OK in 45ms (Views: 42.7ms | ActiveRecord: 0.4ms)
 
 
-Started GET "/snippets/2" for ::1 at 2016-06-23 16:42:50 -0700
+Started PATCH "/snippets/4" for ::1 at 2016-08-03 18:44:27 -0700
+Processing by SnippetsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"HlUsftgBj5+8FChaREw+H9zjKVmtLjcrWIve4Y7Po1Usn1cJF6KRmd5OdLV1V67hcxVYIKsfnQONCWSkp/pqdw==", "snippet"=>{"kind"=>"Markdown", "title"=>"Greetings", "code"=>"# h1\r\n_Italics_\r\n*Bold*\r\n##### by Alaina Gully & Angela Ji", "private"=>"0"}, "commit"=>"Post the Snippet", "id"=>"4"}
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSnippet Exists (0.8ms)[0m  SELECT  1 AS one FROM "snippets" WHERE ("snippets"."title" = 'Greetings' AND "snippets"."id" != 4) LIMIT 1
+  [1m[36mSQL (1.8ms)[0m  [1mUPDATE "snippets" SET "code" = $1, "updated_at" = $2 WHERE "snippets"."id" = $3[0m  [["code", "# h1\r\n_Italics_\r\n*Bold*\r\n##### by Alaina Gully & Angela Ji"], ["updated_at", "2016-08-04 01:44:27.899608"], ["id", 4]]
+  [1m[35m (1.3ms)[0m  COMMIT
+Redirected to http://localhost:3000/snippets/4
+Completed 302 Found in 16ms (ActiveRecord: 4.4ms)
+
+
+Started GET "/snippets/4" for ::1 at 2016-08-03 18:44:27 -0700
 Processing by SnippetsController#show as HTML
-  Parameters: {"id"=>"2"}
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  Parameters: {"id"=>"4"}
+  [1m[36mSnippet Load (0.3ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered snippets/show.html.erb within layouts/application (2.3ms)
+  Rendered layouts/_navbar.html.erb (0.6ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 35ms (Views: 33.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/snippets/4/edit" for ::1 at 2016-08-03 18:44:34 -0700
+Processing by SnippetsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered snippets/_snippet_form.html.erb (1.7ms)
+  Rendered snippets/edit.html.erb within layouts/application (3.0ms)
+  Rendered layouts/_navbar.html.erb (0.9ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 41ms (Views: 39.0ms | ActiveRecord: 0.4ms)
+
+
+Started PATCH "/snippets/4" for ::1 at 2016-08-03 18:44:51 -0700
+Processing by SnippetsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"RJI/y/iGILqwV8WV3ihFca9lDJZd31EetFKRRG6KlxV2WES8NyU+vNINmXrvM9WPAJN971vu+zZh0CsBR79eNw==", "snippet"=>{"kind"=>"Markdown", "title"=>"Greetings", "code"=>"# h1\r\n_Italicize_\r\n**Bold**\r\n##### by Alaina Gully & Angela Ji", "private"=>"0"}, "commit"=>"Post the Snippet", "id"=>"4"}
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSnippet Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "snippets" WHERE ("snippets"."title" = 'Greetings' AND "snippets"."id" != 4) LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "snippets" SET "code" = $1, "updated_at" = $2 WHERE "snippets"."id" = $3  [["code", "# h1\r\n_Italicize_\r\n**Bold**\r\n##### by Alaina Gully & Angela Ji"], ["updated_at", "2016-08-04 01:44:51.772288"], ["id", 4]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/snippets/4
+Completed 302 Found in 8ms (ActiveRecord: 2.2ms)
+
+
+Started GET "/snippets/4" for ::1 at 2016-08-03 18:44:51 -0700
+Processing by SnippetsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered snippets/show.html.erb within layouts/application (1.5ms)
+  Rendered layouts/_navbar.html.erb (0.5ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 36ms (Views: 34.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/snippets/4/edit" for ::1 at 2016-08-03 18:44:57 -0700
+Processing by SnippetsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered snippets/_snippet_form.html.erb (2.3ms)
+  Rendered snippets/edit.html.erb within layouts/application (3.6ms)
+  Rendered layouts/_navbar.html.erb (0.5ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 37ms (Views: 34.8ms | ActiveRecord: 0.4ms)
+
+
+Started PATCH "/snippets/4" for ::1 at 2016-08-03 18:46:30 -0700
+Processing by SnippetsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"RdhrEeTo/o/Jvv25ne8ZDG1+9U7HGsjmtbvyMpFlgkh3EhBmK0vgiavkoVas9InywoiEN8ErYs5gOUh3uFBLag==", "snippet"=>{"kind"=>"Markdown", "title"=>"Greetings", "code"=>"# header 1\r\n## header 2\r\n_Italicize_\r\n**Bold**\r\n~Strikethrough~\r\nby Alaina Gully & Angela Ji", "private"=>"0"}, "commit"=>"Post the Snippet", "id"=>"4"}
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSnippet Exists (0.3ms)[0m  SELECT  1 AS one FROM "snippets" WHERE ("snippets"."title" = 'Greetings' AND "snippets"."id" != 4) LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mUPDATE "snippets" SET "code" = $1, "updated_at" = $2 WHERE "snippets"."id" = $3[0m  [["code", "# header 1\r\n## header 2\r\n_Italicize_\r\n**Bold**\r\n~Strikethrough~\r\nby Alaina Gully & Angela Ji"], ["updated_at", "2016-08-04 01:46:30.691162"], ["id", 4]]
+  [1m[35m (6.1ms)[0m  COMMIT
+Redirected to http://localhost:3000/snippets/4
+Completed 302 Found in 12ms (ActiveRecord: 7.1ms)
+
+
+Started GET "/snippets/4" for ::1 at 2016-08-03 18:46:30 -0700
+Processing by SnippetsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered snippets/show.html.erb within layouts/application (2.4ms)
+  Rendered layouts/_navbar.html.erb (0.6ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 67ms (Views: 65.2ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/snippets/4/edit" for ::1 at 2016-08-03 18:46:33 -0700
+Processing by SnippetsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered snippets/_snippet_form.html.erb (1.6ms)
+  Rendered snippets/edit.html.erb within layouts/application (4.3ms)
+  Rendered layouts/_navbar.html.erb (0.5ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 41ms (Views: 38.1ms | ActiveRecord: 0.4ms)
+
+
+Started PATCH "/snippets/4" for ::1 at 2016-08-03 18:46:38 -0700
+Processing by SnippetsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ClNsgeeJXTtBHH2edEjVnDtTatEAe/YqumBru92UCF84mRf2KCpDPSNGIXFFU0VilKUbqAZKXAJv4tH+9KHBfQ==", "snippet"=>{"kind"=>"Markdown", "title"=>"Greetings", "code"=>"# header 1\r\n## header 2\r\n_Italicize_\r\n**Bold**\r\n~~Strikethrough~~\r\nby Alaina Gully & Angela Ji", "private"=>"0"}, "commit"=>"Post the Snippet", "id"=>"4"}
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSnippet Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "snippets" WHERE ("snippets"."title" = 'Greetings' AND "snippets"."id" != 4) LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  UPDATE "snippets" SET "code" = $1, "updated_at" = $2 WHERE "snippets"."id" = $3  [["code", "# header 1\r\n## header 2\r\n_Italicize_\r\n**Bold**\r\n~~Strikethrough~~\r\nby Alaina Gully & Angela Ji"], ["updated_at", "2016-08-04 01:46:38.228737"], ["id", 4]]
+  [1m[36m (5.8ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/snippets/4
+Completed 302 Found in 13ms (ActiveRecord: 7.0ms)
+
+
+Started GET "/snippets/4" for ::1 at 2016-08-03 18:46:38 -0700
+Processing by SnippetsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered snippets/show.html.erb within layouts/application (1.7ms)
+  Rendered layouts/_navbar.html.erb (0.7ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 34ms (Views: 32.8ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/snippets/4/edit" for ::1 at 2016-08-03 18:47:01 -0700
+Processing by SnippetsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered snippets/_snippet_form.html.erb (1.8ms)
+  Rendered snippets/edit.html.erb within layouts/application (3.1ms)
+  Rendered layouts/_navbar.html.erb (0.5ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 36ms (Views: 34.0ms | ActiveRecord: 0.3ms)
+
+
+Started PATCH "/snippets/4" for ::1 at 2016-08-03 18:47:07 -0700
+Processing by SnippetsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Yoo9mMheLA89ebqeXR3ZDU/HEAX+cx5jwV/YWKDXv49QQEbvB/0yCV8j5nFsBknz4DFhfPhCtEsU3WIdieJ2rQ==", "snippet"=>{"kind"=>"Markdown", "title"=>"Greetings", "code"=>"# header 1\r\n## header 2\r\n_Italicize_\r\n**Bold**\r\n~~~Strikethrough~~~\r\nby Alaina Gully & Angela Ji", "private"=>"0"}, "commit"=>"Post the Snippet", "id"=>"4"}
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSnippet Exists (0.2ms)[0m  SELECT  1 AS one FROM "snippets" WHERE ("snippets"."title" = 'Greetings' AND "snippets"."id" != 4) LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mUPDATE "snippets" SET "code" = $1, "updated_at" = $2 WHERE "snippets"."id" = $3[0m  [["code", "# header 1\r\n## header 2\r\n_Italicize_\r\n**Bold**\r\n~~~Strikethrough~~~\r\nby Alaina Gully & Angela Ji"], ["updated_at", "2016-08-04 01:47:07.141339"], ["id", 4]]
+  [1m[35m (1.1ms)[0m  COMMIT
+Redirected to http://localhost:3000/snippets/4
+Completed 302 Found in 8ms (ActiveRecord: 2.3ms)
+
+
+Started GET "/snippets/4" for ::1 at 2016-08-03 18:47:07 -0700
+Processing by SnippetsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered snippets/show.html.erb within layouts/application (2.0ms)
+  Rendered layouts/_navbar.html.erb (0.6ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 35ms (Views: 33.8ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/snippets/4/edit" for ::1 at 2016-08-03 18:47:11 -0700
+Processing by SnippetsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered snippets/_snippet_form.html.erb (1.6ms)
+  Rendered snippets/edit.html.erb within layouts/application (3.0ms)
+  Rendered layouts/_navbar.html.erb (0.4ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 38ms (Views: 35.6ms | ActiveRecord: 0.3ms)
+
+
+Started PATCH "/snippets/4" for ::1 at 2016-08-03 18:47:54 -0700
+Processing by SnippetsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"4Ae37qFYgkXiejoWSfkWT3AaGaWyMAR0+EnTCPxP4IHSzcyZbvucQ4AgZvl44oax3+xo3LQBrlwty2lN1Xopow==", "snippet"=>{"kind"=>"Markdown", "title"=>"Greetings", "code"=>"# header 1\r\n## header 2\r\n_Italicize_\r\n**Bold**\r\n_combined emphasis_**\r\nby Alaina Gully & Angela Ji", "private"=>"0"}, "commit"=>"Post the Snippet", "id"=>"4"}
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSnippet Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "snippets" WHERE ("snippets"."title" = 'Greetings' AND "snippets"."id" != 4) LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  UPDATE "snippets" SET "code" = $1, "updated_at" = $2 WHERE "snippets"."id" = $3  [["code", "# header 1\r\n## header 2\r\n_Italicize_\r\n**Bold**\r\n_combined emphasis_**\r\nby Alaina Gully & Angela Ji"], ["updated_at", "2016-08-04 01:47:54.009876"], ["id", 4]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/snippets/4
+Completed 302 Found in 6ms (ActiveRecord: 2.0ms)
+
+
+Started GET "/snippets/4" for ::1 at 2016-08-03 18:47:54 -0700
+Processing by SnippetsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered snippets/show.html.erb within layouts/application (1.5ms)
+  Rendered layouts/_navbar.html.erb (0.6ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 41ms (Views: 39.6ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/snippets/4/edit" for ::1 at 2016-08-03 18:47:59 -0700
+Processing by SnippetsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered snippets/_snippet_form.html.erb (2.9ms)
+  Rendered snippets/edit.html.erb within layouts/application (4.6ms)
+  Rendered layouts/_navbar.html.erb (0.6ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 42ms (Views: 38.8ms | ActiveRecord: 0.3ms)
+
+
+Started PATCH "/snippets/4" for ::1 at 2016-08-03 18:49:04 -0700
+Processing by SnippetsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ch3ONGTvOt8HPfOxRGo/gpuT8CaBE48lsVzhBaXnCAVA17VDq0wk2WVnr151ca98NGWBX4ciJQ1k3ltAjNLBJw==", "snippet"=>{"kind"=>"Markdown", "title"=>"Greetings", "code"=>"# HTML h1\r\n### HTML h3\r\n##### HTML h5\r\n_Italicize_\r\n**Bold**\r\n", "private"=>"0"}, "commit"=>"Post the Snippet", "id"=>"4"}
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSnippet Exists (0.2ms)[0m  SELECT  1 AS one FROM "snippets" WHERE ("snippets"."title" = 'Greetings' AND "snippets"."id" != 4) LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "snippets" SET "code" = $1, "updated_at" = $2 WHERE "snippets"."id" = $3[0m  [["code", "# HTML h1\r\n### HTML h3\r\n##### HTML h5\r\n_Italicize_\r\n**Bold**\r\n"], ["updated_at", "2016-08-04 01:49:04.883756"], ["id", 4]]
+  [1m[35m (1.7ms)[0m  COMMIT
+Redirected to http://localhost:3000/snippets/4
+Completed 302 Found in 8ms (ActiveRecord: 2.7ms)
+
+
+Started GET "/snippets/4" for ::1 at 2016-08-03 18:49:04 -0700
+Processing by SnippetsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered snippets/show.html.erb within layouts/application (2.2ms)
+  Rendered layouts/_navbar.html.erb (0.5ms)
+  Rendered layouts/_flash.html.erb (0.2ms)
+Completed 200 OK in 35ms (Views: 33.8ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/snippets/4/edit" for ::1 at 2016-08-03 18:49:10 -0700
+Processing by SnippetsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered snippets/_snippet_form.html.erb (1.6ms)
+  Rendered snippets/edit.html.erb within layouts/application (2.9ms)
+  Rendered layouts/_navbar.html.erb (0.6ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 37ms (Views: 34.1ms | ActiveRecord: 0.4ms)
+
+
+Started PATCH "/snippets/4" for ::1 at 2016-08-03 18:49:17 -0700
+Processing by SnippetsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Qiajiu4ZvknXA8ajbfDl0dlN5v9thb7BbQtzTcd9papw7Nj9IbqgT7VZmkxc63UvdruXhmu0FOm4ickI7khsiA==", "snippet"=>{"kind"=>"Markdown", "title"=>"Greetings", "code"=>"# HTML h1\r\n### HTML h3\r\n##### HTML h5\r\n_Italicize_\r\n**Bold**", "private"=>"0"}, "commit"=>"Post the Snippet", "id"=>"4"}
+  [1m[36mSnippet Load (0.5ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSnippet Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "snippets" WHERE ("snippets"."title" = 'Greetings' AND "snippets"."id" != 4) LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  UPDATE "snippets" SET "code" = $1, "updated_at" = $2 WHERE "snippets"."id" = $3  [["code", "# HTML h1\r\n### HTML h3\r\n##### HTML h5\r\n_Italicize_\r\n**Bold**"], ["updated_at", "2016-08-04 01:49:17.803748"], ["id", 4]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/snippets/4
+Completed 302 Found in 8ms (ActiveRecord: 2.5ms)
+
+
+Started GET "/snippets/4" for ::1 at 2016-08-03 18:49:17 -0700
+Processing by SnippetsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered snippets/show.html.erb within layouts/application (2.2ms)
+  Rendered layouts/_navbar.html.erb (0.7ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 36ms (Views: 34.2ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/snippets/4" for ::1 at 2016-08-03 18:49:21 -0700
+Processing by SnippetsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered snippets/show.html.erb within layouts/application (1.9ms)
+  Rendered layouts/_navbar.html.erb (0.5ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 36ms (Views: 34.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/assets/font-awesome.self-c1a7a80b6536c3397a1a212c9bd22298ae69260ee343d00b60d7f41fa54a59a8.css?body=1" for ::1 at 2016-08-03 18:49:22 -0700
+
+
+Started GET "/assets/customstyle.self-4b591d2af23ea738c4204b274a1642716c2d2181bec5cb33d983bc1f4c9c096c.css?body=1" for ::1 at 2016-08-03 18:49:22 -0700
+
+
+Started GET "/assets/pygments.self-87f52c8b338cd237146f4475f140ff233f73ccecc5e7a0734a306bd322163511.css?body=1" for ::1 at 2016-08-03 18:49:22 -0700
+
+
+Started GET "/assets/sessions.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-08-03 18:49:22 -0700
+
+
+Started GET "/assets/snippets.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-08-03 18:49:22 -0700
+
+
+Started GET "/assets/users.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-08-03 18:49:22 -0700
+
+
+Started GET "/assets/application.self-167193cd81d9330d9ddb5c4ec7b44214fea529aa8a94f3a86e6526e4f652fc02.css?body=1" for ::1 at 2016-08-03 18:49:22 -0700
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-08-03 18:49:22 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-08-03 18:49:22 -0700
+
+
+Started GET "/assets/bootstrap.self-e7dfe29e9f594eb85eead62e3ed95df169b0fc3d21fe0468a812e399c9fcc604.js?body=1" for ::1 at 2016-08-03 18:49:22 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-08-03 18:49:22 -0700
+
+
+Started GET "/assets/sessions.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-08-03 18:49:22 -0700
+
+
+Started GET "/assets/snippets.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-08-03 18:49:22 -0700
+
+
+Started GET "/assets/users.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-08-03 18:49:22 -0700
+
+
+Started GET "/assets/application.self-f8806224e027f3e3f0138ea9ce99319e298dfdb323304d1f1be6eae8e8c74724.js?body=1" for ::1 at 2016-08-03 18:49:22 -0700
+
+
+Started GET "/snippets/4/edit" for ::1 at 2016-08-03 18:49:34 -0700
+Processing by SnippetsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered snippets/_snippet_form.html.erb (1.4ms)
+  Rendered snippets/edit.html.erb within layouts/application (2.7ms)
+  Rendered layouts/_navbar.html.erb (0.5ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 37ms (Views: 34.4ms | ActiveRecord: 0.3ms)
+
+
+Started PATCH "/snippets/4" for ::1 at 2016-08-03 18:49:43 -0700
+Processing by SnippetsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"v9/z001kz9veOw6g71TzUjHwZ4sguVbmKwOgouvZhhCNFYikgsfR3bxhUk/eT2OsngYW8iaI/M7+gRrnwuxPMg==", "snippet"=>{"kind"=>"Markdown", "title"=>"Greetings", "code"=>"# HTML h1\r\n### HTML h3\r\n##### HTML h5\r\n_Italicize_\r\n**Bold**\r\n\r\n- Updated!", "private"=>"0"}, "commit"=>"Post the Snippet", "id"=>"4"}
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSnippet Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "snippets" WHERE ("snippets"."title" = 'Greetings' AND "snippets"."id" != 4) LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  UPDATE "snippets" SET "code" = $1, "updated_at" = $2 WHERE "snippets"."id" = $3  [["code", "# HTML h1\r\n### HTML h3\r\n##### HTML h5\r\n_Italicize_\r\n**Bold**\r\n\r\n- Updated!"], ["updated_at", "2016-08-04 01:49:43.859889"], ["id", 4]]
+  [1m[36m (1.2ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/snippets/4
+Completed 302 Found in 7ms (ActiveRecord: 2.1ms)
+
+
+Started GET "/snippets/4" for ::1 at 2016-08-03 18:49:43 -0700
+Processing by SnippetsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered snippets/show.html.erb within layouts/application (1.5ms)
+  Rendered layouts/_navbar.html.erb (0.5ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 36ms (Views: 34.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/snippets/4/edit" for ::1 at 2016-08-03 18:49:53 -0700
+Processing by SnippetsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered snippets/_snippet_form.html.erb (2.1ms)
+  Rendered snippets/edit.html.erb within layouts/application (3.4ms)
+  Rendered layouts/_navbar.html.erb (0.5ms)
+  Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 47ms (Views: 43.4ms | ActiveRecord: 0.6ms)
+
+
+Started PATCH "/snippets/4" for ::1 at 2016-08-03 18:50:16 -0700
+Processing by SnippetsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"3rTIWzIU+JLiZjId8YFXTSj8O+gLNMkB6gL72e6mO+HsfrMs/bfmlIA8bvLAmsezhwpKkQ0FYyk/gEGcx5Pyww==", "snippet"=>{"kind"=>"Markdown", "title"=>"Greetings", "code"=>"# HTML h1\r\n### HTML h3\r\n##### HTML h5\r\n_Italicize_\r\n**Bold**\r\n\r\n- list style 1\r\n+ list style 2", "private"=>"0"}, "commit"=>"Post the Snippet", "id"=>"4"}
+  [1m[35mSnippet Load (0.3ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSnippet Exists (0.3ms)[0m  SELECT  1 AS one FROM "snippets" WHERE ("snippets"."title" = 'Greetings' AND "snippets"."id" != 4) LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mUPDATE "snippets" SET "code" = $1, "updated_at" = $2 WHERE "snippets"."id" = $3[0m  [["code", "# HTML h1\r\n### HTML h3\r\n##### HTML h5\r\n_Italicize_\r\n**Bold**\r\n\r\n- list style 1\r\n+ list style 2"], ["updated_at", "2016-08-04 01:50:16.483622"], ["id", 4]]
+  [1m[35m (1.3ms)[0m  COMMIT
+Redirected to http://localhost:3000/snippets/4
+Completed 302 Found in 8ms (ActiveRecord: 2.4ms)
+
+
+Started GET "/snippets/4" for ::1 at 2016-08-03 18:50:16 -0700
+Processing by SnippetsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 4]]
   [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
   [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
   Rendered snippets/show.html.erb within layouts/application (1.8ms)
   Rendered layouts/_navbar.html.erb (0.8ms)
+  Rendered layouts/_flash.html.erb (0.2ms)
+Completed 200 OK in 33ms (Views: 32.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/snippets/4/edit" for ::1 at 2016-08-03 18:50:19 -0700
+Processing by SnippetsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered snippets/_snippet_form.html.erb (1.5ms)
+  Rendered snippets/edit.html.erb within layouts/application (2.8ms)
+  Rendered layouts/_navbar.html.erb (0.5ms)
   Rendered layouts/_flash.html.erb (0.1ms)
+Completed 200 OK in 36ms (Views: 33.6ms | ActiveRecord: 0.4ms)
+
+
+Started PATCH "/snippets/4" for ::1 at 2016-08-03 18:50:34 -0700
+Processing by SnippetsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"uLLz5Gv12IId2FUdACmqEAMgC0QA6BzLqr7p+SjwLIWKeIiTpFbGhH+CCfIxMjrurNZ6PQbZtuN/PFO8AcXlpw==", "snippet"=>{"kind"=>"Markdown", "title"=>"Greetings", "code"=>"# HTML h1\r\n### HTML h3\r\n##### HTML h5\r\n_Italicize_\r\n**Bold**\r\n\r\n- list item", "private"=>"0"}, "commit"=>"Post the Snippet", "id"=>"4"}
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSnippet Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "snippets" WHERE ("snippets"."title" = 'Greetings' AND "snippets"."id" != 4) LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  UPDATE "snippets" SET "code" = $1, "updated_at" = $2 WHERE "snippets"."id" = $3  [["code", "# HTML h1\r\n### HTML h3\r\n##### HTML h5\r\n_Italicize_\r\n**Bold**\r\n\r\n- list item"], ["updated_at", "2016-08-04 01:50:34.095451"], ["id", 4]]
+  [1m[36m (1.2ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/snippets/4
+Completed 302 Found in 7ms (ActiveRecord: 2.1ms)
+
+
+Started GET "/snippets/4" for ::1 at 2016-08-03 18:50:34 -0700
+Processing by SnippetsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mSnippet Load (0.2ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered snippets/show.html.erb within layouts/application (1.8ms)
+  Rendered layouts/_navbar.html.erb (0.5ms)
+  Rendered layouts/_flash.html.erb (0.2ms)
 Completed 200 OK in 38ms (Views: 36.9ms | ActiveRecord: 0.4ms)
 
 
-Started GET "/snippets/2" for ::1 at 2016-06-23 16:44:16 -0700
-Processing by SnippetsController#show as HTML
-  Parameters: {"id"=>"2"}
-  [1m[35mSnippet Load (0.3ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 2]]
-  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
-  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
-  Rendered snippets/show.html.erb within layouts/application (1.8ms)
-Completed 500 Internal Server Error in 20ms (ActiveRecord: 0.5ms)
-
-ActionView::Template::Error (couldn't find file 'redcarpet' with type 'text/css'):
-    2: <html>
-    3: <head>
-    4:   <title>Code Snippets</title>
-    5:   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-    6:   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-    7:   <%= csrf_meta_tags %>
-    8: </head>
-  app/assets/stylesheets/application.css:18
-  app/views/layouts/application.html.erb:5:in `_app_views_layouts_application_html_erb___1057003611861915598_70331228775580'
-
-
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.8ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.7ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (68.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.6ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (57.5ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (133.4ms)
-
-
-Started GET "/" for ::1 at 2016-06-23 16:45:46 -0700
+Started GET "/" for ::1 at 2016-08-03 19:06:12 -0700
 Processing by SnippetsController#index as HTML
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1  ORDER BY created_at DESC[0m  [["private", "f"]]
-  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Ruby"]]
-  [1m[36mSnippet Load (0.1ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "HTML"]]
-  [1m[35mSnippet Load (0.1ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "CSS"]]
-  [1m[36mSnippet Load (0.1ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "JavaScript"]]
-  Rendered snippets/index.html.erb within layouts/application (4.2ms)
-Completed 500 Internal Server Error in 17ms (ActiveRecord: 0.8ms)
-
-ActionView::Template::Error (couldn't find file 'redcarpet' with type 'text/css'):
-    2: <html>
-    3: <head>
-    4:   <title>Code Snippets</title>
-    5:   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-    6:   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-    7:   <%= csrf_meta_tags %>
-    8: </head>
-  app/assets/stylesheets/application.css:18
-  app/views/layouts/application.html.erb:5:in `_app_views_layouts_application_html_erb___1057003611861915598_70331228775580'
-
-
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (6.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.5ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (62.0ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (47.8ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (107.6ms)
-
-
-Started GET "/" for ::1 at 2016-06-23 16:46:20 -0700
-Processing by SnippetsController#index as HTML
-  [1m[35mSnippet Load (0.3ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1  ORDER BY created_at DESC  [["private", "f"]]
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "Ruby"]]
-  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "HTML"]]
-  [1m[36mSnippet Load (0.1ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "CSS"]]
-  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "JavaScript"]]
-  Rendered snippets/index.html.erb within layouts/application (8.9ms)
-Completed 500 Internal Server Error in 26ms (ActiveRecord: 2.3ms)
-
-ActionView::Template::Error (couldn't find file 'redcarpet' with type 'text/css'):
-    2: <html>
-    3: <head>
-    4:   <title>Code Snippets</title>
-    5:   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-    6:   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-    7:   <%= csrf_meta_tags %>
-    8: </head>
-  app/assets/stylesheets/application.css:18
-  app/views/layouts/application.html.erb:5:in `_app_views_layouts_application_html_erb___1057003611861915598_70331228775580'
-
-
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (6.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.9ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (55.2ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (42.5ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (96.6ms)
-
-
-Started GET "/" for ::1 at 2016-06-23 16:47:13 -0700
-Processing by SnippetsController#index as HTML
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1  ORDER BY created_at DESC[0m  [["private", "f"]]
+  [1m[36mSnippet Load (0.7ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1  ORDER BY created_at DESC[0m  [["private", "f"]]
   [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Ruby"]]
   [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "HTML"]]
   [1m[35mSnippet Load (0.1ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "CSS"]]
   [1m[36mSnippet Load (0.1ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "JavaScript"]]
-  Rendered snippets/index.html.erb within layouts/application (9.0ms)
-Completed 500 Internal Server Error in 28ms (ActiveRecord: 2.3ms)
-
-ActionView::Template::Error (couldn't find file 'redcarpet' with type 'text/css'):
-    2: <html>
-    3: <head>
-    4:   <title>Code Snippets</title>
-    5:   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-    6:   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-    7:   <%= csrf_meta_tags %>
-    8: </head>
-  app/assets/stylesheets/application.css:18
-  app/views/layouts/application.html.erb:5:in `_app_views_layouts_application_html_erb___1057003611861915598_70331228775580'
-
-
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (6.1ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.1ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (54.9ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.5ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (41.0ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (94.3ms)
-
-
-Started GET "/" for ::1 at 2016-06-23 16:47:47 -0700
-Processing by SnippetsController#index as HTML
-  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1  ORDER BY created_at DESC  [["private", "f"]]
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "Ruby"]]
-  [1m[35mSnippet Load (0.2ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "HTML"]]
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "CSS"]]
-  [1m[35mSnippet Load (0.1ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "JavaScript"]]
-  Rendered snippets/index.html.erb within layouts/application (4.3ms)
-  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
-  Rendered layouts/_navbar.html.erb (10.2ms)
-  Rendered layouts/_flash.html.erb (0.1ms)
-Completed 200 OK in 69ms (Views: 65.4ms | ActiveRecord: 1.7ms)
-
-
-Started GET "/assets/font-awesome.self-c1a7a80b6536c3397a1a212c9bd22298ae69260ee343d00b60d7f41fa54a59a8.css?body=1" for ::1 at 2016-06-23 16:47:47 -0700
-
-
-Started GET "/assets/pygments.self-87f52c8b338cd237146f4475f140ff233f73ccecc5e7a0734a306bd322163511.css?body=1" for ::1 at 2016-06-23 16:47:47 -0700
-
-
-Started GET "/assets/sessions.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-06-23 16:47:47 -0700
-
-
-Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-06-23 16:47:47 -0700
-
-
-Started GET "/assets/snippets.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-06-23 16:47:47 -0700
-
-
-Started GET "/assets/application.self-167193cd81d9330d9ddb5c4ec7b44214fea529aa8a94f3a86e6526e4f652fc02.css?body=1" for ::1 at 2016-06-23 16:47:47 -0700
-
-
-Started GET "/assets/users.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-06-23 16:47:47 -0700
-
-
-Started GET "/assets/custom.self-cde33f3294a5cf76e70b48877a7b3d3942d5b06dde55ba253d56573eaa5e8668.css?body=1" for ::1 at 2016-06-23 16:47:47 -0700
-
-
-Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-06-23 16:47:47 -0700
-
-
-Started GET "/assets/bootstrap.self-e7dfe29e9f594eb85eead62e3ed95df169b0fc3d21fe0468a812e399c9fcc604.js?body=1" for ::1 at 2016-06-23 16:47:47 -0700
-
-
-Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-06-23 16:47:47 -0700
-
-
-Started GET "/assets/sessions.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-06-23 16:47:47 -0700
-
-
-Started GET "/assets/snippets.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-06-23 16:47:47 -0700
-
-
-Started GET "/assets/users.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-06-23 16:47:47 -0700
-
-
-Started GET "/assets/application.self-f8806224e027f3e3f0138ea9ce99319e298dfdb323304d1f1be6eae8e8c74724.js?body=1" for ::1 at 2016-06-23 16:47:47 -0700
-
-
-Started GET "/assets/fontawesome-webfont-ff82aeed6b9bb6701696c84d1b223d2e682eb78c89117a438ce6cfea8c498995.woff2?v=4.5.0" for ::1 at 2016-06-23 16:47:47 -0700
-
-
-Started GET "/snippets/1" for ::1 at 2016-06-23 16:47:50 -0700
-Processing by SnippetsController#show as HTML
-  Parameters: {"id"=>"1"}
-  [1m[35mSnippet Load (0.3ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 1]]
-  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
-  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
-  Rendered snippets/show.html.erb within layouts/application (5.2ms)
-  Rendered layouts/_navbar.html.erb (0.5ms)
-  Rendered layouts/_flash.html.erb (0.1ms)
-Completed 200 OK in 42ms (Views: 40.1ms | ActiveRecord: 0.5ms)
-
-
-Started GET "/snippets/1" for ::1 at 2016-06-23 16:54:05 -0700
-
-SyntaxError (/Users/angelaji/may-2016/code_snippet/app/helpers/application_helper.rb:17: syntax error, unexpected end-of-input, expecting keyword_end):
-  app/helpers/application_helper.rb:17: syntax error, unexpected end-of-input, expecting keyword_end
-  app/controllers/application_controller.rb:1:in `<top (required)>'
-  app/controllers/snippets_controller.rb:1:in `<top (required)>'
-
-
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.2ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (51.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (41.9ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (93.6ms)
-
-
-Started GET "/snippets/1" for ::1 at 2016-06-23 16:54:23 -0700
-Processing by SnippetsController#show as HTML
-  Parameters: {"id"=>"1"}
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 1]]
-  Rendered snippets/show.html.erb within layouts/application (22.6ms)
-Completed 500 Internal Server Error in 38ms (ActiveRecord: 1.7ms)
-
-ActionView::Template::Error (undefined method `markdown' for #<#<Class:0x007fee8894ac18>:0x007fee88931880>):
-    4:         <%= html_kind(@snippet.kind)[:icon]%>
-    5:        </h1>
-    6:       <%# raw(Pygments.highlight(@snippet.code, lexer: @snippet.kind)) %>
-    7:       <%= markdown(@snippet.code)   %>
-    8:       <% if can? :manage, @snippet %>
-    9:       <p><%= link_to "EDIT", edit_snippet_path(@snippet), class: "text-muted" %> <%= link_to "DELETE", snippet_path(@snippet), method: :delete, data: { confirm: "Are you sure??"}, class: "text-muted" %></p>
-   10:       <% end %>
-  app/views/snippets/show.html.erb:7:in `_app_views_snippets_show_html_erb___1084886320360281414_70331277347500'
-
-
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.6ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.1ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (51.2ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (41.6ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (91.2ms)
-
-
-Started GET "/snippets/1" for ::1 at 2016-06-23 16:56:56 -0700
-Processing by SnippetsController#show as HTML
-  Parameters: {"id"=>"1"}
-  [1m[35mSnippet Load (0.1ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 1]]
-  Rendered snippets/show.html.erb within layouts/application (23.0ms)
-Completed 500 Internal Server Error in 39ms (ActiveRecord: 2.5ms)
-
-ActionView::Template::Error (undefined method `markdown' for #<#<Class:0x007fee862e4038>:0x007fee8cac7ab0>):
-    4:         <%= html_kind(@snippet.kind)[:icon]%>
-    5:        </h1>
-    6:       <%# raw(Pygments.highlight(@snippet.code, lexer: @snippet.kind)) %>
-    7:       <%= markdown(@snippet.code)   %>
-    8:       <% if can? :manage, @snippet %>
-    9:       <p><%= link_to "EDIT", edit_snippet_path(@snippet), class: "text-muted" %> <%= link_to "DELETE", snippet_path(@snippet), method: :delete, data: { confirm: "Are you sure??"}, class: "text-muted" %></p>
-   10:       <% end %>
-  app/views/snippets/show.html.erb:7:in `_app_views_snippets_show_html_erb___1084886320360281414_70331277347500'
-
-
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.1ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.2ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (50.7ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (43.1ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (93.0ms)
-
-
-Started GET "/snippets/1" for ::1 at 2016-06-23 17:02:13 -0700
-Processing by SnippetsController#show as HTML
-  Parameters: {"id"=>"1"}
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 1]]
-  Rendered snippets/show.html.erb within layouts/application (4.5ms)
-Completed 500 Internal Server Error in 20ms (ActiveRecord: 1.5ms)
-
-ActionView::Template::Error (uninitialized constant ApplicationHelper::HTML):
-    4:         <%= html_kind(@snippet.kind)[:icon]%>
-    5:        </h1>
-    6:       <%# raw(Pygments.highlight(@snippet.code, lexer: @snippet.kind)) %>
-    7:       <%= markdown(@snippet.code)   %>
-    8:       <% if can? :manage, @snippet %>
-    9:       <p><%= link_to "EDIT", edit_snippet_path(@snippet), class: "text-muted" %> <%= link_to "DELETE", snippet_path(@snippet), method: :delete, data: { confirm: "Are you sure??"}, class: "text-muted" %></p>
-   10:       <% end %>
-  app/helpers/application_helper.rb:16:in `markdown'
-  app/views/snippets/show.html.erb:7:in `_app_views_snippets_show_html_erb___1084886320360281414_70331277347500'
-
-
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.0ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (51.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.5ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (41.6ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (91.4ms)
-
-
-Started GET "/snippets/1" for ::1 at 2016-06-23 17:02:42 -0700
-Processing by SnippetsController#show as HTML
-  Parameters: {"id"=>"1"}
-  [1m[35mSnippet Load (0.1ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 1]]
-  Rendered snippets/show.html.erb within layouts/application (4.2ms)
-Completed 500 Internal Server Error in 22ms (ActiveRecord: 2.2ms)
-
-ActionView::Template::Error (uninitialized constant ApplicationHelper::HTML):
-    4:         <%= html_kind(@snippet.kind)[:icon]%>
-    5:        </h1>
-    6:       <%# raw(Pygments.highlight(@snippet.code, lexer: @snippet.kind)) %>
-    7:       <%= markdown(@snippet.code)   %>
-    8:       <% if can? :manage, @snippet %>
-    9:       <p><%= link_to "EDIT", edit_snippet_path(@snippet), class: "text-muted" %> <%= link_to "DELETE", snippet_path(@snippet), method: :delete, data: { confirm: "Are you sure??"}, class: "text-muted" %></p>
-   10:       <% end %>
-  app/helpers/application_helper.rb:16:in `markdown'
-  app/views/snippets/show.html.erb:7:in `_app_views_snippets_show_html_erb___1084886320360281414_70331277347500'
-
-
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.8ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (50.5ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (43.0ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (95.0ms)
-
-
-Started GET "/snippets/1" for ::1 at 2016-06-23 17:03:50 -0700
-Processing by SnippetsController#show as HTML
-  Parameters: {"id"=>"1"}
-  [1m[36mSnippet Load (0.1ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 1]]
-  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
-  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
-  Rendered snippets/show.html.erb within layouts/application (12.7ms)
-  Rendered layouts/_navbar.html.erb (0.7ms)
-  Rendered layouts/_flash.html.erb (0.1ms)
-Completed 200 OK in 64ms (Views: 51.9ms | ActiveRecord: 2.4ms)
-
-
-Started GET "/assets/pygments.self-87f52c8b338cd237146f4475f140ff233f73ccecc5e7a0734a306bd322163511.css?body=1" for ::1 at 2016-06-23 17:03:50 -0700
-
-
-Started GET "/assets/custom.self-cde33f3294a5cf76e70b48877a7b3d3942d5b06dde55ba253d56573eaa5e8668.css?body=1" for ::1 at 2016-06-23 17:03:50 -0700
-
-
-Started GET "/assets/font-awesome.self-c1a7a80b6536c3397a1a212c9bd22298ae69260ee343d00b60d7f41fa54a59a8.css?body=1" for ::1 at 2016-06-23 17:03:50 -0700
-
-
-Started GET "/assets/sessions.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-06-23 17:03:50 -0700
-
-
-Started GET "/assets/snippets.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-06-23 17:03:50 -0700
-
-
-Started GET "/assets/users.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-06-23 17:03:50 -0700
-
-
-Started GET "/assets/application.self-167193cd81d9330d9ddb5c4ec7b44214fea529aa8a94f3a86e6526e4f652fc02.css?body=1" for ::1 at 2016-06-23 17:03:50 -0700
-
-
-Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-06-23 17:03:50 -0700
-
-
-Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-06-23 17:03:50 -0700
-
-
-Started GET "/assets/bootstrap.self-e7dfe29e9f594eb85eead62e3ed95df169b0fc3d21fe0468a812e399c9fcc604.js?body=1" for ::1 at 2016-06-23 17:03:50 -0700
-
-
-Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-06-23 17:03:50 -0700
-
-
-Started GET "/assets/sessions.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-06-23 17:03:50 -0700
-
-
-Started GET "/assets/snippets.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-06-23 17:03:50 -0700
-
-
-Started GET "/assets/users.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-06-23 17:03:50 -0700
-
-
-Started GET "/assets/application.self-f8806224e027f3e3f0138ea9ce99319e298dfdb323304d1f1be6eae8e8c74724.js?body=1" for ::1 at 2016-06-23 17:03:50 -0700
-
-
-Started GET "/assets/fontawesome-webfont-ff82aeed6b9bb6701696c84d1b223d2e682eb78c89117a438ce6cfea8c498995.woff2?v=4.5.0" for ::1 at 2016-06-23 17:03:51 -0700
-
-
-Started GET "/snippets/1" for ::1 at 2016-06-23 17:10:13 -0700
-Processing by SnippetsController#show as HTML
-  Parameters: {"id"=>"1"}
-  [1m[35mSnippet Load (0.1ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 1]]
-  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
-  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
-  Rendered snippets/show.html.erb within layouts/application (12.6ms)
-  Rendered layouts/_navbar.html.erb (0.8ms)
-  Rendered layouts/_flash.html.erb (0.1ms)
-Completed 200 OK in 59ms (Views: 47.4ms | ActiveRecord: 2.6ms)
-
-
-Started GET "/snippets/1" for ::1 at 2016-06-23 17:13:11 -0700
-Processing by SnippetsController#show as HTML
-  Parameters: {"id"=>"1"}
-  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1[0m  [["id", 1]]
-  Rendered snippets/show.html.erb within layouts/application (6.0ms)
-Completed 500 Internal Server Error in 12ms (ActiveRecord: 0.2ms)
-
-ActionView::Template::Error (undefined method `title' for "Ruby":String
-Did you mean?  titleize):
-    4:         <%= html_kind(@snippet.kind)[:icon]%>
-    5:        </h1>
-    6: 
-    7:       <code><%= markdown("~~~#{@snippet.kind.title.downcase}\n#{@snippet.code}\n~~~")   %></code>
-    8:       <% if can? :manage, @snippet %>
-    9:       <p><%= link_to "EDIT", edit_snippet_path(@snippet), class: "text-muted" %> <%= link_to "DELETE", snippet_path(@snippet), method: :delete, data: { confirm: "Are you sure??"}, class: "text-muted" %></p>
-   10:       <% end %>
-  app/views/snippets/show.html.erb:7:in `_app_views_snippets_show_html_erb___1084886320360281414_70331273953240'
-
-
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.9ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.0ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/actionpack-4.2.5.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (52.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.5ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.5ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (42.2ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
-  Rendered /Users/angelaji/.rvm/gems/ruby-2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (92.0ms)
-  [1m[36mSnippet Load (0.5ms)[0m  [1mSELECT "snippets".* FROM "snippets"[0m
-
-
-Started GET "/snippets/1" for ::1 at 2016-06-23 17:24:37 -0700
-  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
-Processing by SnippetsController#show as HTML
-  Parameters: {"id"=>"1"}
-  [1m[35mSnippet Load (0.5ms)[0m  SELECT  "snippets".* FROM "snippets" WHERE "snippets"."id" = $1 LIMIT 1  [["id", 1]]
-  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
-  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
-  Rendered snippets/show.html.erb within layouts/application (34.5ms)
-  Rendered layouts/_navbar.html.erb (3.7ms)
-  Rendered layouts/_flash.html.erb (0.9ms)
-Completed 200 OK in 595ms (Views: 557.2ms | ActiveRecord: 3.9ms)
-
-
-Started GET "/assets/sessions.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-06-23 17:24:37 -0700
-
-
-Started GET "/assets/font-awesome.self-c1a7a80b6536c3397a1a212c9bd22298ae69260ee343d00b60d7f41fa54a59a8.css?body=1" for ::1 at 2016-06-23 17:24:37 -0700
-
-
-Started GET "/assets/users.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-06-23 17:24:37 -0700
-
-
-Started GET "/assets/custom.self-cde33f3294a5cf76e70b48877a7b3d3942d5b06dde55ba253d56573eaa5e8668.css?body=1" for ::1 at 2016-06-23 17:24:37 -0700
-
-
-Started GET "/assets/pygments.self-87f52c8b338cd237146f4475f140ff233f73ccecc5e7a0734a306bd322163511.css?body=1" for ::1 at 2016-06-23 17:24:38 -0700
-
-
-Started GET "/assets/snippets.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-06-23 17:24:38 -0700
-
-
-Started GET "/assets/application.self-167193cd81d9330d9ddb5c4ec7b44214fea529aa8a94f3a86e6526e4f652fc02.css?body=1" for ::1 at 2016-06-23 17:24:38 -0700
-
-
-Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-06-23 17:24:38 -0700
-
-
-Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-06-23 17:24:38 -0700
-
-
-Started GET "/assets/bootstrap.self-e7dfe29e9f594eb85eead62e3ed95df169b0fc3d21fe0468a812e399c9fcc604.js?body=1" for ::1 at 2016-06-23 17:24:38 -0700
-
-
-Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-06-23 17:24:38 -0700
-
-
-Started GET "/assets/sessions.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-06-23 17:24:38 -0700
-
-
-Started GET "/assets/snippets.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-06-23 17:24:38 -0700
-
-
-Started GET "/assets/users.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-06-23 17:24:38 -0700
-
-
-Started GET "/assets/application.self-f8806224e027f3e3f0138ea9ce99319e298dfdb323304d1f1be6eae8e8c74724.js?body=1" for ::1 at 2016-06-23 17:24:38 -0700
-
-
-Started GET "/assets/fontawesome-webfont-ff82aeed6b9bb6701696c84d1b223d2e682eb78c89117a438ce6cfea8c498995.woff2?v=4.5.0" for ::1 at 2016-06-23 17:24:38 -0700
+  [1m[35mSnippet Load (0.1ms)[0m  SELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC  [["private", "f"], ["kind", "Markdown"]]
+  [1m[36mSnippet Load (0.2ms)[0m  [1mSELECT "snippets".* FROM "snippets" WHERE "snippets"."private" = $1 AND "snippets"."kind" = $2  ORDER BY created_at DESC[0m  [["private", "f"], ["kind", "Python"]]
+  Rendered snippets/index.html.erb within layouts/application (22.2ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_navbar.html.erb (3.1ms)
+  Rendered layouts/_flash.html.erb (0.4ms)
+Completed 200 OK in 178ms (Views: 166.5ms | ActiveRecord: 2.0ms)

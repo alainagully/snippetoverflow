@@ -5,7 +5,9 @@ class Snippet < ActiveRecord::Base
   KIND_HTML         = "HTML"
   KIND_CSS          = "CSS"
   KIND_JAVASCRIPT   = "JavaScript"
-  KINDS = [KIND_RUBY, KIND_HTML, KIND_CSS, KIND_JAVASCRIPT]
+  KIND_MARKDOWN     = "Markdown"
+  KIND_PYTHON    = "Python"
+  KINDS = [KIND_RUBY, KIND_HTML, KIND_CSS, KIND_JAVASCRIPT, KIND_MARKDOWN, KIND_PYTHON]
 
   validates :kind, presence: true, inclusion: { in: KINDS }
   validates :title, presence: true, uniqueness: true
@@ -16,7 +18,7 @@ class Snippet < ActiveRecord::Base
   scope :private_snippet, -> {where({private: true})}
 
    def set_defaults
-    self.kind ||= KIND_RUBY
+    self.kind ||= KIND_MARKDOWN
   end
 
 end

@@ -1,12 +1,11 @@
 <nav class="navbar navbar-full navbar-dark" style = "background-color: #f1404b">
   <div class="container">
     <%= link_to fa_icon("codepen"), root_path, class: "app-logo fa-3x" %>
-  <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2"> &#9776; </button>
-  <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+  <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#navbar"> &#9776; </button>
+  <div class="collapse navbar-toggleable-sm" id="navbar">
       <ul class="nav navbar-nav">
-          <strong><%= link_to "</code-snippets>", root_path, class: "text-lg-center nav-link brand-homepage" %></strong>
-        <li class="nav-item <%# 'active' if current_page?(new_question_path) %>">
-          <%# link_to "Ask a Question", new_question_path, class: "nav-link" %>
+          <strong><%= link_to "</codesnippets>", root_path, class: "text-lg float-left nav-link brand-homepage" %></strong>
+        <li class="nav-item">
         </li>
         <% if user_signed_in? %>
         <li class="nav-item <%= 'active' if current_page?(sessions_path) %>">

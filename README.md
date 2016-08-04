@@ -1,17 +1,39 @@
-# Code Snippets
+# < / codesnippets >
+###_A Rails Application based on Github and Stack Overflow_
 
-As you learn more and more about web development, you will have more and more snippets of code to build different components of your application. Build a tool in Rails that helps you store code snippets.
+< / codesnippets > is a web application built on Rails for code snippets.
+Any user will be able to:
 
-You must have test coverage (doesn't have to be a 100%) for creating and updating the snippet kinds and the snippets.
+- select the type of code they wish to write and write their code with proper syntax highlighting (just like what it looks like on Atom, Vim, etc)
+- create a public or private snippet
+- edit or delete their snippets
+- view all their snippets and any public snippets
+- create an account/sign in/sign out
+- edit their user profile
 
-The box must accept markdown. Make sure to have the code highlighted properly depending on the language.
+**Currently, </codesnippets> supports these languages:**
 
-**Note:** avoid using `type` as a column name in models. More on that will come later. This is why the wireframe uses `Kind`, you can pick another word if you'd like just don't use `type`.  
+- Ruby
+- HTML
+- CSS
+- JavaScript
+- Markdown
+- Python
 
-**[Stretch]** _Make snippets owned by users so a user can create their own snippets. Also add `private` checkbox to the snippet code. If the code snippet is private only the user can see it. If the snippet is not private it means it's public and it will show on the home page listing where it will list all the snippets for all the users._
+**A Preview of < / codesnippets >**
+
+http://snippetoverflow.herokuapp.com/
+
+<img src="http://i.imgur.com/TnIDy2W.png" title="all public Ruby snippets">
+<img src="http://i.imgur.com/aoaM3Z7.png" title="updated Markdown snippet">
 
 
-###### Code Snippet done by:
-Angela Ji && Anurag Saroha
-Cohort 13
-June 24th, 2016
+###How to Run < / codesnippets > Application (locally)
+
+> `bundle`
+> `bin/rake db:create db:migrate`
+
+on browser, go to `localhost:3000`
+
+
+&copy; Angela Ji && Alaina Gully, 2016

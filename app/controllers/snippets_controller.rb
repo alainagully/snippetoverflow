@@ -4,15 +4,7 @@ class SnippetsController < ApplicationController
   before_action :authorize_user, only: [:edit, :update, :destroy]
 
   def index
-#     if user_signed_in?
-#       # @snippets = current_user.snippets.where("private = ? AND private = ?", true, false).joins(Snippet.public_snippet.order("created_at DESC"))
-#       @snippets = Snippet.where("private = ? AND #{current_user.snippets} = ?", false, true)
-#       # @snippets = Snippet.where(["private = ? OR #{current_user.snippets.private_snippet} = ?", false, true ])
-# # @snippets = (Snippet.public_snippet.order("created_at DESC") + current_user.snippets.private_snippet.order("created_at DESC"))
-#     else
-  # @snippets = Snippet.where(["private = ? OR #{current_user.snippets.private_snippet} = ?", false, true])
-      @snippets = Snippet.public_snippet.order("created_at DESC")
-    # end
+    @snippets = Snippet.public_snippet.order("created_at DESC")
   end
 
   def secret_snippets
@@ -42,9 +34,9 @@ class SnippetsController < ApplicationController
 
   def update
     if @snippet.update(snippet_params)
-      redirect_to(snippet_path(@snippet), flash: { success:  "Snippet Updated"})
+      redirect_to(snippet_path(@snippet), flash: { success:  "Snippet has been updated!"})
     else
-      flash[:warning] = "Snippet was not successful"
+      flash[:warning] = "Couldn't update snippet!"
       render :edit
     end
   end
@@ -52,7 +44,7 @@ class SnippetsController < ApplicationController
   def destroy
     snippet = current_user.snippets.find(params[:id])
     snippet.destroy
-    redirect_to((root_path), flash: { danger: "Snippet Removed!" })
+    redirect_to((root_path), flash: { danger: "Snippet deleted!" })
   end
 
   private

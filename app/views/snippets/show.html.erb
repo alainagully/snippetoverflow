@@ -4,7 +4,13 @@
         <%= html_kind(@snippet.kind)[:icon]%>
        </h1>
 
-      <code><%= markdown("~~~#{@snippet.kind.downcase}\n#{@snippet.code}\n~~~")   %></code>
+      <div id="snippet-code">
+        <% if @snippet.kind == "Markdown"  %>
+        <%= markdown(@snippet.code)%>
+        <% else %>
+        <%= markdown("~~~#{@snippet.kind.downcase}\n#{@snippet.code}\n~~~")   %>
+        <% end %>
+      </div>
       <% if can? :manage, @snippet %>
       <p><%= link_to "EDIT", edit_snippet_path(@snippet), class: "text-muted" %> <%= link_to "DELETE", snippet_path(@snippet), method: :delete, data: { confirm: "Are you sure??"}, class: "text-muted" %></p>
       <% end %>
