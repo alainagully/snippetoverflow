@@ -1,6 +1,5 @@
 <h1 class="title text-lg-center all-public-snippets">All Public Snippets (<%= @snippets.length %>)</h1>
 
-<!-- <div class="col-md-10 col-md-offset-1"> -->
 <div class="row">
     <nav class="code-navigation col-md-10 col-md-offset-1">
         <ul class="nav nav-pills text-lg-center" role="tablist">
@@ -25,8 +24,8 @@
                     <%= fa_icon("flag") %></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#javascript" role="tab">Python
-                    <%= fa_icon("coffee") %></a>
+                <a class="nav-link" data-toggle="tab" href="#python" role="tab">Python
+                    <%= fa_icon("plus") %></a>
             </li>
         </ul>
     </nav>
@@ -100,11 +99,3 @@
             <% end %>
 </div>
 <% end %>
-
-<!-- <table class="table table-striped"> -->
-<%# @snippets.each do |snippet| %>
-<!-- <tr> -->
-<!-- <td><%# link_to snippet.title, snippet_path(snippet) %></td> -->
-<!-- </tr> -->
-<%# end %>
-<!-- </table> -->

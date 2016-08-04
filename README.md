@@ -1,7 +1,9 @@
-# < / codesnippets >
-###_A Rails Application based on Github and Stack Overflow_
+# < / snippetoverflow >
+### _A Rails Application based on Github and Stack Overflow_
+&copy; Angela Ji && Alaina Gully, 2016
 
-< / codesnippets > is a web application built on Rails for code snippets.
+## What is < / snippetoverflow >
+< / snippetoverflow > is a web application built on Rails for code snippets.
 Any user will be able to:
 
 - select the type of code they wish to write and write their code with proper syntax highlighting (just like what it looks like on Atom, Vim, etc)
@@ -11,7 +13,7 @@ Any user will be able to:
 - create an account/sign in/sign out
 - edit their user profile
 
-**Currently, </codesnippets> supports these languages:**
+**Currently, < / snippetoverflow > supports these languages:**
 
 - Ruby
 - HTML
@@ -20,20 +22,13 @@ Any user will be able to:
 - Markdown
 - Python
 
-**A Preview of < / codesnippets >**
+**A Preview of < / snippetoverflow >**
 
 http://snippetoverflow.herokuapp.com/
 
-<img src="http://i.imgur.com/TnIDy2W.png" title="all public Ruby snippets">
-<img src="http://i.imgur.com/aoaM3Z7.png" title="updated Markdown snippet">
-
-
-###How to Run < / codesnippets > Application (locally)
+###How to Run Application (Locally)
 
 > `bundle`
 > `bin/rake db:create db:migrate`
 
 on browser, go to `localhost:3000`
-
-
-&copy; Angela Ji && Alaina Gully, 2016

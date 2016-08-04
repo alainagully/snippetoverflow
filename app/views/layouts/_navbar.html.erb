@@ -4,7 +4,7 @@
   <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#navbar"> &#9776; </button>
   <div class="collapse navbar-toggleable-sm" id="navbar">
       <ul class="nav navbar-nav">
-          <strong><%= link_to "</codesnippets>", root_path, class: "text-lg float-left nav-link brand-homepage" %></strong>
+          <strong><%= link_to "</snippetoverflow>", root_path, class: "text-lg float-left nav-link brand-homepage" %></strong>
         <li class="nav-item">
         </li>
         <% if user_signed_in? %>
@@ -17,12 +17,14 @@
           <li class="nav-item <%= 'active' if current_page?(edit_user_path(current_user)) %>">
             <%= link_to "create snippet", new_snippet_path, class: "nav-link" %>
           </li>
-        <li class="nav-item <%= 'active' if current_page?(secret_snippets_path) %>">
-          <%= link_to "secret snippets", secret_snippets_path, class: "nav-link" %>
-        </li>
 
+          <li class="nav-item <%= 'active' if current_page?(edit_user_path(current_user)) %>">
+            <%= link_to "public snippets", root_path, class: "nav-link" %>
+          </li>
 
-
+          <li class="nav-item <%= 'active' if current_page?(secret_snippets_path) %>">
+            <%= link_to "secret snippets", secret_snippets_path, class: "nav-link" %>
+          </li>
         </li>
         <% else %>
         <li class="nav-item <%= 'active' if current_page?(new_user_path) %>">
